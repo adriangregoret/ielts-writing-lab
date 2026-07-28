@@ -1,0 +1,10 @@
+{
+  "name": "ielts-writing-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "IELTS GT Writing trainer with AI (Claude Sonnet 5) correction",
+  "dependencies": {
+    "@anthropic-ai/sdk": "latest"
+  }
+}

@@ -1,0 +1,1568 @@
+<title>IELTS GT Writing — The Road to Band 8</title>
+<style>
+  :root {
+    /* neutrals biased toward indigo */
+    --paper: #f4f5f9;
+    --card: #ffffff;
+    --card-2: #fbfbfe;
+    --ink: #171a2e;
+    --ink-soft: #454a68;
+    --ink-faint: #7b809c;
+    --line: #e4e5ef;
+    --line-strong: #d0d2e2;
+    /* brand */
+    --accent: #4338ca;
+    --accent-soft: #eceafb;
+    --accent-ink: #362eaa;
+    --gold: #d99413;
+    --gold-soft: #fbf1dc;
+    /* semantic */
+    --good: #1f9d69;
+    --good-soft: #e2f4ec;
+    --warn: #cb7a17;
+    --bad: #d34460;
+    --bad-soft: #fbe7ec;
+    --shadow: 0 1px 2px rgba(23,26,46,.06), 0 8px 24px -12px rgba(23,26,46,.18);
+    --shadow-lg: 0 2px 4px rgba(23,26,46,.06), 0 24px 48px -20px rgba(23,26,46,.30);
+    --radius: 14px;
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #101223;
+      --card: #191c31;
+      --card-2: #1f2238;
+      --ink: #eef0fb;
+      --ink-soft: #b6bad4;
+      --ink-faint: #7f849e;
+      --line: #2a2e47;
+      --line-strong: #383d5c;
+      --accent: #8b83f5;
+      --accent-soft: #24264a;
+      --accent-ink: #b3adfa;
+      --gold: #f0b429;
+      --gold-soft: #322a15;
+      --good: #43c58d;
+      --good-soft: #16321f;
+      --warn: #e0a13a;
+      --bad: #f0798f;
+      --bad-soft: #331a24;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+      --shadow-lg: 0 2px 4px rgba(0,0,0,.35), 0 24px 48px -20px rgba(0,0,0,.7);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #f4f5f9; --card: #ffffff; --card-2: #fbfbfe; --ink: #171a2e;
+    --ink-soft: #454a68; --ink-faint: #7b809c; --line: #e4e5ef; --line-strong: #d0d2e2;
+    --accent: #4338ca; --accent-soft: #eceafb; --accent-ink: #362eaa;
+    --gold: #d99413; --gold-soft: #fbf1dc; --good: #1f9d69; --good-soft: #e2f4ec;
+    --warn: #cb7a17; --bad: #d34460; --bad-soft: #fbe7ec;
+    --shadow: 0 1px 2px rgba(23,26,46,.06), 0 8px 24px -12px rgba(23,26,46,.18);
+    --shadow-lg: 0 2px 4px rgba(23,26,46,.06), 0 24px 48px -20px rgba(23,26,46,.30);
+  }
+  :root[data-theme="dark"] {
+    --paper: #101223; --card: #191c31; --card-2: #1f2238; --ink: #eef0fb;
+    --ink-soft: #b6bad4; --ink-faint: #7f849e; --line: #2a2e47; --line-strong: #383d5c;
+    --accent: #8b83f5; --accent-soft: #24264a; --accent-ink: #b3adfa;
+    --gold: #f0b429; --gold-soft: #322a15; --good: #43c58d; --good-soft: #16321f;
+    --warn: #e0a13a; --bad: #f0798f; --bad-soft: #331a24;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    --shadow-lg: 0 2px 4px rgba(0,0,0,.35), 0 24px 48px -20px rgba(0,0,0,.7);
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .app {
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 100% -10%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 60%),
+      var(--paper);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.55;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+  }
+
+  /* ---------- Layout ---------- */
+  .shell { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+  .side {
+    border-right: 1px solid var(--line);
+    background: var(--card);
+    padding: 20px 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; padding: 6px 8px 14px; }
+  .brand .mark {
+    width: 38px; height: 38px; border-radius: 10px; flex: none;
+    background: linear-gradient(145deg, var(--accent), color-mix(in srgb, var(--accent) 55%, var(--gold)));
+    color: #fff; display: grid; place-items: center; font-family: var(--serif);
+    font-weight: 700; font-size: 20px; box-shadow: var(--shadow);
+  }
+  .brand h1 { font-family: var(--serif); font-size: 16px; margin: 0; line-height: 1.15; letter-spacing: -.01em; }
+  .brand span { font-size: 11px; color: var(--ink-faint); letter-spacing: .04em; text-transform: uppercase; }
+
+  .nav-label { font-size: 10.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-faint); padding: 14px 10px 6px; font-weight: 600; }
+  .nav-btn {
+    display: flex; align-items: center; gap: 11px; width: 100%;
+    padding: 9px 11px; border-radius: 10px; border: 1px solid transparent;
+    background: transparent; color: var(--ink-soft); font: inherit; font-size: 13.5px;
+    cursor: pointer; text-align: left; transition: background .15s, color .15s;
+  }
+  .nav-btn .ic { width: 18px; height: 18px; flex: none; opacity: .85; }
+  .nav-btn:hover { background: var(--card-2); color: var(--ink); }
+  .nav-btn.on { background: var(--accent-soft); color: var(--accent-ink); border-color: color-mix(in srgb, var(--accent) 22%, transparent); font-weight: 600; }
+  .nav-btn.on .ic { opacity: 1; }
+  .nav-badge { margin-left: auto; font-size: 10.5px; font-family: var(--mono); color: var(--ink-faint); background: var(--card-2); padding: 1px 7px; border-radius: 20px; border: 1px solid var(--line); }
+
+  .side-foot { margin-top: auto; padding-top: 14px; }
+  .theme-toggle {
+    display: flex; align-items: center; gap: 9px; width: 100%; padding: 9px 11px;
+    border-radius: 10px; border: 1px solid var(--line); background: var(--card-2);
+    color: var(--ink-soft); font: inherit; font-size: 12.5px; cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--line-strong); }
+
+  .main { padding: 26px clamp(18px, 4vw, 44px) 60px; max-width: 1080px; }
+
+  /* ---------- Topbar ---------- */
+  .topbar { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+  .topbar .titles { flex: 1 1 260px; min-width: 0; }
+  .topbar h2 { font-family: var(--serif); font-size: clamp(22px, 3.4vw, 30px); margin: 0 0 3px; letter-spacing: -.015em; text-wrap: balance; }
+  .topbar p { margin: 0; color: var(--ink-faint); font-size: 13.5px; }
+  .stat-chips { display: flex; gap: 9px; flex-wrap: wrap; }
+  .chip {
+    display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 8px 12px; box-shadow: var(--shadow); min-width: 84px;
+  }
+  .chip .k { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); }
+  .chip .v { font-family: var(--mono); font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; }
+  .chip .v small { font-size: 11px; color: var(--ink-faint); font-weight: 400; }
+  .chip.streak .v { color: var(--gold); }
+
+  /* ---------- Cards ---------- */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .grid { display: grid; gap: 16px; }
+  .g2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .g3 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .section-title { font-family: var(--serif); font-size: 17px; margin: 28px 0 12px; letter-spacing: -.01em; display: flex; align-items: center; gap: 9px; }
+  .section-title .rule { flex: 1; height: 1px; background: var(--line); }
+
+  /* Band meter */
+  .band-card { padding: 20px 22px; }
+  .band-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; gap: 12px; }
+  .band-now { font-family: var(--serif); font-size: 40px; line-height: 1; letter-spacing: -.02em; }
+  .band-now small { font-size: 14px; color: var(--ink-faint); font-family: var(--sans); }
+  .band-label { text-align: right; font-size: 12px; color: var(--ink-soft); }
+  .band-label b { color: var(--accent-ink); }
+  .meter { height: 12px; border-radius: 20px; background: var(--card-2); border: 1px solid var(--line); overflow: hidden; position: relative; }
+  .meter > i { display: block; height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--accent), var(--gold)); transition: width .6s cubic-bezier(.2,.8,.2,1); }
+  .ticks { display: flex; justify-content: space-between; margin-top: 6px; font-size: 10.5px; color: var(--ink-faint); font-family: var(--mono); }
+
+  .tile {
+    padding: 18px; display: flex; flex-direction: column; gap: 10px; cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s; position: relative; overflow: hidden;
+  }
+  .tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--line-strong); }
+  .tile .ti { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-ink); }
+  .tile h3 { margin: 0; font-size: 15px; font-family: var(--serif); letter-spacing: -.01em; }
+  .tile p { margin: 0; font-size: 12.5px; color: var(--ink-faint); line-height: 1.45; }
+  .tile .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: var(--ink-faint); }
+
+  .pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 20px; letter-spacing: .01em; }
+  .pill.t1 { background: var(--accent-soft); color: var(--accent-ink); }
+  .pill.t2 { background: var(--gold-soft); color: var(--gold); }
+  .pill.g { background: var(--good-soft); color: var(--good); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; border-radius: 10px;
+    padding: 10px 16px; border: 1px solid var(--line-strong); background: var(--card); color: var(--ink);
+    transition: background .15s, border-color .15s, transform .1s; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn:hover { border-color: var(--accent); }
+  .btn:active { transform: translateY(1px); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: var(--accent-ink); }
+  .btn.ghost { background: transparent; border-color: transparent; color: var(--ink-soft); }
+  .btn.ghost:hover { background: var(--card-2); color: var(--ink); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+  .btn:focus-visible, .nav-btn:focus-visible, .opt:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Quiz ---------- */
+  .quiz-wrap { max-width: 720px; }
+  .quiz-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; }
+  .q-progress { flex: 1; height: 7px; border-radius: 8px; background: var(--card-2); border: 1px solid var(--line); overflow: hidden; }
+  .q-progress > i { display: block; height: 100%; background: var(--accent); transition: width .3s; }
+  .q-count { font-family: var(--mono); font-size: 12.5px; color: var(--ink-faint); white-space: nowrap; }
+  .q-card { padding: 24px; }
+  .q-tag { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-ink); font-weight: 700; margin-bottom: 10px; }
+  .q-stem { font-size: 17px; font-family: var(--serif); line-height: 1.45; margin: 0 0 20px; text-wrap: pretty; }
+  .q-stem .quote { display: block; border-left: 3px solid var(--accent); padding: 4px 0 4px 14px; margin: 12px 0; font-style: italic; color: var(--ink-soft); }
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    text-align: left; font: inherit; font-size: 14px; padding: 13px 15px; border-radius: 11px;
+    border: 1px solid var(--line-strong); background: var(--card-2); color: var(--ink); cursor: pointer;
+    display: flex; align-items: center; gap: 11px; transition: border-color .12s, background .12s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt .kbd { width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1px solid var(--line-strong); display: grid; place-items: center; font-family: var(--mono); font-size: 11px; color: var(--ink-faint); }
+  .opt.correct { border-color: var(--good); background: var(--good-soft); }
+  .opt.correct .kbd { border-color: var(--good); color: var(--good); }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.wrong .kbd { border-color: var(--bad); color: var(--bad); }
+  .opt:disabled { cursor: default; }
+  .explain {
+    margin-top: 16px; padding: 14px 16px; border-radius: 11px; font-size: 13.5px; line-height: 1.5;
+    background: var(--card-2); border: 1px solid var(--line); display: none;
+  }
+  .explain.show { display: block; animation: pop .25s ease; }
+  .explain b { color: var(--accent-ink); }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .quiz-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+  .verdict { font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 7px; }
+  .verdict.ok { color: var(--good); }
+  .verdict.no { color: var(--bad); }
+
+  /* Result screen */
+  .result { text-align: center; padding: 40px 24px; }
+  .result .score-ring { width: 128px; height: 128px; margin: 0 auto 18px; position: relative; }
+  .result .score-ring b { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 34px; }
+  .result h3 { font-family: var(--serif); font-size: 22px; margin: 0 0 6px; }
+  .result p { color: var(--ink-faint); margin: 0 0 20px; }
+
+  /* ---------- Writing pad ---------- */
+  .pad-layout { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  @media (min-width: 900px) { .pad-layout { grid-template-columns: 1.05fr .95fr; align-items: start; } }
+  .prompt-card { padding: 20px 22px; }
+  .prompt-card .meta { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .prompt-card .body { font-size: 15px; line-height: 1.6; }
+  .prompt-card .body p { margin: 0 0 10px; }
+  .prompt-card ul.bullets { margin: 10px 0 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .prompt-card ul.bullets li { padding-left: 26px; position: relative; font-size: 14px; color: var(--ink-soft); }
+  .prompt-card ul.bullets li::before { content: attr(data-n); position: absolute; left: 0; top: 0; width: 18px; height: 18px; border-radius: 6px; background: var(--accent-soft); color: var(--accent-ink); font-size: 11px; font-weight: 700; display: grid; place-items: center; font-family: var(--mono); }
+  .prompt-card .instruct { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-strong); font-size: 12.5px; color: var(--ink-faint); }
+
+  .pad-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .timer { font-family: var(--mono); font-size: 15px; font-variant-numeric: tabular-nums; padding: 6px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); }
+  .timer.run { border-color: var(--accent); color: var(--accent-ink); }
+  .timer.over { border-color: var(--bad); color: var(--bad); }
+  .wc { font-family: var(--mono); font-size: 13px; color: var(--ink-faint); margin-left: auto; }
+  .wc b { color: var(--ink); }
+  .wc.ok b { color: var(--good); }
+  textarea.pad {
+    width: 100%; min-height: 300px; resize: vertical; padding: 16px; border-radius: 12px;
+    border: 1px solid var(--line-strong); background: var(--card); color: var(--ink);
+    font-family: var(--serif); font-size: 15px; line-height: 1.7;
+  }
+  textarea.pad:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+  .checklist { padding: 18px 20px; }
+  .checklist h4 { margin: 0 0 4px; font-size: 14px; font-family: var(--serif); }
+  .checklist .sub { font-size: 12px; color: var(--ink-faint); margin: 0 0 14px; }
+  .check-item { display: flex; gap: 11px; padding: 9px 0; border-top: 1px solid var(--line); cursor: pointer; align-items: flex-start; }
+  .check-item:first-of-type { border-top: none; }
+  .check-box { width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line-strong); flex: none; margin-top: 1px; display: grid; place-items: center; transition: background .15s, border-color .15s; }
+  .check-box svg { width: 13px; height: 13px; opacity: 0; transform: scale(.6); transition: .15s; color: #fff; }
+  .check-item.done .check-box { background: var(--good); border-color: var(--good); }
+  .check-item.done .check-box svg { opacity: 1; transform: none; }
+  .check-item .ct { font-size: 13px; }
+  .check-item.done .ct { color: var(--ink-faint); }
+  .check-item .ct b { display: block; color: var(--ink); font-size: 13px; }
+  .check-item.done .ct b { text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+
+  /* auto-check status */
+  .check-item.st-pass .check-box { background: var(--good); border-color: var(--good); }
+  .check-item.st-pass .check-box svg { opacity: 1; transform: none; }
+  .check-item.st-warn .check-box { background: var(--warn); border-color: var(--warn); color: #fff; font-weight: 700; font-size: 13px; }
+  .check-item.st-fail .check-box { background: var(--bad); border-color: var(--bad); color: #fff; font-weight: 700; font-size: 14px; }
+  .check-item .advice { display: none; margin-top: 5px; font-size: 12.5px; line-height: 1.45; }
+  .check-item.st-warn .advice { display: block; color: var(--warn); }
+  .check-item.st-fail .advice { display: block; color: var(--bad); }
+  .live-band { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--ink-faint); white-space: nowrap; }
+  .live-band b { color: var(--accent-ink); font-size: 14px; }
+
+  /* evaluation report */
+  .report { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 16px; }
+  .rep-band { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .rep-num { font-family: var(--serif); font-size: 40px; line-height: 1; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+  .rep-band small { color: var(--ink-faint); }
+  .crit-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 4px; }
+  .crit { padding: 10px 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--card-2); }
+  .crit .ch { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 600; }
+  .crit .lvl { font-size: 10.5px; padding: 2px 9px; border-radius: 20px; font-weight: 600; }
+  .lvl.good { background: var(--good-soft); color: var(--good); }
+  .lvl.ok { background: var(--gold-soft); color: var(--gold); }
+  .lvl.work { background: var(--bad-soft); color: var(--bad); }
+  .crit p { margin: 6px 0 0; font-size: 12px; color: var(--ink-soft); line-height: 1.45; }
+  .issue-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 7px; }
+  .issue-list li { font-size: 13px; line-height: 1.45; padding: 9px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card-2); border-left-width: 3px; }
+  .issue-list li.sev-error { border-left-color: var(--bad); }
+  .issue-list li.sev-warn { border-left-color: var(--warn); }
+  .issue-list li.sev-tip { border-left-color: var(--accent); }
+  .issue-list li b { color: var(--ink); }
+  .rep-head { font-family: var(--serif); font-size: 14px; margin: 16px 0 9px; }
+
+  /* progress log */
+  .log-freq { display: flex; flex-wrap: wrap; gap: 8px; }
+  .freq-chip { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); background: var(--card); font-size: 12.5px; }
+  .freq-chip b { font-family: var(--mono); background: var(--bad-soft); color: var(--bad); border-radius: 12px; padding: 0 7px; }
+  .log-entry { padding: 16px 18px; margin-bottom: 12px; }
+  .log-entry .le-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .log-entry .le-date { font-size: 12px; color: var(--ink-faint); font-family: var(--mono); }
+  .log-entry ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
+  .log-entry li { font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+  .empty { text-align: center; padding: 50px 24px; color: var(--ink-faint); }
+  .empty .big { font-size: 42px; margin-bottom: 12px; }
+
+  .model-toggle { margin-top: 14px; }
+  .model-answer { margin-top: 12px; padding: 16px; border-radius: 11px; background: var(--card-2); border: 1px solid var(--line); font-family: var(--serif); font-size: 14px; line-height: 1.65; display: none; }
+  .model-answer.show { display: block; }
+  .model-answer h5 { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-ink); margin: 0 0 8px; }
+
+  /* Reference / accordion */
+  .acc { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--card); }
+  .acc + .acc { margin-top: 10px; }
+  .acc summary { padding: 14px 18px; cursor: pointer; font-weight: 600; font-size: 14.5px; list-style: none; display: flex; align-items: center; gap: 10px; font-family: var(--serif); }
+  .acc summary::-webkit-details-marker { display: none; }
+  .acc summary .chev { margin-left: auto; transition: transform .2s; color: var(--ink-faint); }
+  .acc[open] summary .chev { transform: rotate(90deg); }
+  .acc .acc-body { padding: 0 18px 18px; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); }
+  .acc .acc-body p { margin: 0 0 10px; }
+  .acc .acc-body strong { color: var(--ink); }
+  .phrase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-top: 8px; }
+  .phrase { padding: 9px 12px; border-radius: 9px; background: var(--card-2); border: 1px solid var(--line); font-size: 12.5px; }
+  .phrase code { font-family: var(--serif); font-style: italic; color: var(--accent-ink); }
+
+  .toast {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--ink); color: var(--paper); padding: 11px 18px; border-radius: 11px; font-size: 13.5px;
+    box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: .3s; z-index: 50; display: flex; align-items: center; gap: 9px; font-weight: 500;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast .xp { color: var(--gold); font-family: var(--mono); font-weight: 700; }
+
+  .hidden { display: none !important; }
+  .fade-in { animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* Mobile */
+  .mtabs { display: none; }
+  @media (max-width: 820px) {
+    .shell { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .mtabs {
+      display: flex; gap: 6px; overflow-x: auto; padding: 10px 12px; position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--card) 92%, transparent); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch;
+    }
+    .mtab { flex: none; padding: 8px 13px; border-radius: 20px; border: 1px solid var(--line); background: var(--card); font: inherit; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); white-space: nowrap; cursor: pointer; }
+    .mtab.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .main { padding: 18px 16px 60px; }
+  }
+</style>
+
+<div class="app">
+  <div class="shell">
+    <!-- Sidebar -->
+    <aside class="side">
+      <div class="brand">
+        <div class="mark">8</div>
+        <div>
+          <h1>Writing Lab</h1>
+          <span>IELTS · General</span>
+        </div>
+      </div>
+
+      <div class="nav-label">Study</div>
+      <button class="nav-btn on" data-view="home">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        Dashboard
+      </button>
+      <button class="nav-btn" data-view="task1">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+        Task 1 · Letters
+        <span class="nav-badge" id="nb-t1">0</span>
+      </button>
+      <button class="nav-btn" data-view="task2">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16M4 10h16M4 15h11M4 20h7"/></svg>
+        Task 2 · Essays
+        <span class="nav-badge" id="nb-t2">0</span>
+      </button>
+
+      <div class="nav-label">Games</div>
+      <button class="nav-btn" data-view="register">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M5 8l7-5 7 5"/><circle cx="12" cy="14" r="3"/></svg>
+        Register Radar
+        <span class="nav-badge" id="nb-register">—</span>
+      </button>
+      <button class="nav-btn" data-view="essaytype">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        Essay Detective
+        <span class="nav-badge" id="nb-essaytype">—</span>
+      </button>
+      <button class="nav-btn" data-view="cohesion">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12h6"/><path d="M9 12a4 4 0 0 1-4-4V7a4 4 0 0 1 8 0"/><path d="M15 12a4 4 0 0 0 4 4v1a4 4 0 0 1-8 0"/></svg>
+        Cohesion Bridge
+        <span class="nav-badge" id="nb-cohesion">—</span>
+      </button>
+      <button class="nav-btn" data-view="collocation">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="8" height="6" rx="1"/><rect x="13" y="13" width="8" height="6" rx="1"/><path d="M11 8h2a2 2 0 0 1 2 2v3"/></svg>
+        Collocation Forge
+        <span class="nav-badge" id="nb-collocation">—</span>
+      </button>
+      <button class="nav-btn" data-view="paraphrase">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h11a4 4 0 0 1 0 8H7"/><path d="m7 11-3 4 3 4"/></svg>
+        Paraphrase Workshop
+        <span class="nav-badge" id="nb-paraphrase">—</span>
+      </button>
+
+      <div class="nav-label">Resources</div>
+      <button class="nav-btn" data-view="reference">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-7-3.5L6 21z"/></svg>
+        Band 8 Guide
+      </button>
+      <button class="nav-btn" data-view="log">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="20" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
+        Mistakes &amp; Tips
+        <span class="nav-badge" id="nb-log">0</span>
+      </button>
+
+      <div class="side-foot">
+        <button class="theme-toggle" id="themeBtn">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5 4 4M20 20l-1-1M19 5l1-1M4 20l1-1"/></svg>
+          <span id="themeLabel">Light / dark theme</span>
+        </button>
+      </div>
+    </aside>
+
+    <div>
+      <!-- Mobile tabs -->
+      <nav class="mtabs" id="mtabs"></nav>
+
+      <main class="main" id="main"></main>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============================ STATE ============================ */
+  var LS_KEY = "ielts_writing_lab_v1";
+  var defaultState = {
+    xp: 0,
+    streak: 0,
+    lastDay: null,
+    games: {},          // id -> {best, plays}
+    written: { t1: 0, t2: 0 },
+    checks: {},         // promptId -> [bool...]
+    theme: null
+  };
+  var state = load();
+
+  function load(){
+    try {
+      var s = JSON.parse(localStorage.getItem(LS_KEY));
+      if(!s) return clone(defaultState);
+      for(var k in defaultState){ if(!(k in s)) s[k] = clone(defaultState[k]); }
+      return s;
+    } catch(e){ return clone(defaultState); }
+  }
+  function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e){} }
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+  function bumpStreak(){
+    var t = todayStr();
+    if(state.lastDay === t) return;
+    var y = new Date(); y.setDate(y.getDate()-1);
+    var ys = y.getFullYear()+"-"+(y.getMonth()+1)+"-"+y.getDate();
+    state.streak = (state.lastDay === ys) ? state.streak + 1 : 1;
+    state.lastDay = t; save();
+  }
+  function addXP(n){ state.xp += n; bumpStreak(); save(); toast("+" + n + " XP", n); refreshChips(); }
+
+  /* Band estimate from XP: 5.0 baseline -> 8.5 ceiling */
+  function bandFromXP(xp){
+    var b = 5.0 + Math.min(3.5, xp / 900 * 3.5);
+    return Math.round(b*10)/10;
+  }
+  function bandLabel(b){
+    if(b>=8) return "Very good user";
+    if(b>=7) return "Good user";
+    if(b>=6) return "Competent user";
+    return "Modest user";
+  }
+
+  /* ============================ CONTENT ============================ */
+
+  // ---- Task 1 letter prompts (GT) ----
+  var task1 = [
+    { id:"t1a", tone:"Formal", title:"Complaint about a product",
+      body:["You recently bought a piece of electronic equipment which did not work properly. Write a letter to the shop."],
+      bullets:["Describe the problem with the equipment","Explain what happened when you contacted the shop","Say what you would like the shop to do"],
+      model:"Dear Sir or Madam,\n\nI am writing to express my dissatisfaction with a laptop I purchased from your store on 3 June, which has proved to be faulty.\n\nThe problem lies with the battery. Whenever I attempt to use the device without the charger connected, it shuts down automatically after only a few minutes, making it impossible to work while away from a power source. As I bought the laptop specifically for use during my daily commute, this fault has caused me considerable inconvenience.\n\nWhen I first contacted your customer service department, I was assured that the matter would be investigated promptly. However, three weeks have now elapsed and I have received neither a solution nor any further communication. Given that the product remains under warranty, I find this lack of response entirely unacceptable.\n\nI would therefore be grateful if you could either replace the laptop with a fully functioning model or, failing that, provide me with a complete refund. I would appreciate a response within five working days.\n\nI look forward to hearing from you.\n\nYours faithfully,\nA. Gregoret" },
+    { id:"t1b", tone:"Semi-formal", title:"Requesting time off from your manager",
+      body:["You need to take some time off work for personal reasons. Write a letter to your manager."],
+      bullets:["Explain why you need the time off","Say how long you will be away","Suggest how your work could be covered"],
+      model:"Dear Mr Peterson,\n\nI am writing to request a week of leave, from 12 to 16 August, as I need to attend to an urgent personal matter. A close family member is undergoing surgery during that week, and I would like to be present to support them throughout their recovery.\n\nI understand that this is relatively short notice, so I have given careful thought to how my responsibilities could be covered while I am away. I would be happy to brief Sarah on the current client accounts before I leave, and I will ensure that all pressing tasks are completed in advance. Should anything urgent arise, I would of course remain contactable by email.\n\nI am confident that my absence will cause minimal disruption to the team, and I will make every effort to catch up quickly on my return.\n\nPlease let me know whether this arrangement is acceptable, or if you would prefer to discuss the details in person.\n\nThank you for considering my request.\n\nKind regards,\nAdrian" },
+    { id:"t1c", tone:"Informal", title:"Inviting a friend to visit",
+      body:["A friend from another country is thinking of visiting you. Write a letter to your friend."],
+      bullets:["Encourage your friend to visit","Suggest things you could do together","Give advice about the best time to come"],
+      model:"Hi Marco,\n\nIt was so good to hear that you're finally thinking about coming over to visit — you absolutely have to make it happen! It feels like ages since we last saw each other, and there's honestly so much I want to show you.\n\nThere's loads we could do together. We could spend a lazy day at the beach, go hiking up in the hills for some incredible views, and I'd love to take you round my favourite little coffee shops in town. If you're up for it, we could even take a weekend trip along the coast — trust me, you won't have a single dull moment.\n\nOne bit of advice: try to come in spring if you can. The weather is absolutely gorgeous then, everything is far cheaper than during the summer rush, and the city is much less crowded.\n\nJust let me know your dates as soon as you've booked, and I'll sort everything out on this end.\n\nCan't wait to see you!\n\nTake care,\nAdri" },
+    { id:"t1d", tone:"Formal", title:"Requesting course information",
+      body:["You have seen an advertisement for a training course you are interested in. Write a letter to the training centre."],
+      bullets:["Explain which course you are interested in and why","Ask for details about the schedule and cost","Ask about qualifications you would receive"],
+      model:"Dear Sir or Madam,\n\nI am writing to enquire about the Project Management course advertised in the Weekend Herald on 5 May. Having worked in the logistics sector for several years, I am keen to formalise my practical experience and eventually progress into a management position, and your course appears ideally suited to that goal.\n\nI would be grateful if you could provide some further information before I apply. In particular, I would like to know when the course begins and how long it lasts, as well as whether any evening or weekend classes are available, since I am currently in full-time employment. Could you also confirm the total cost, including any registration or examination fees?\n\nFinally, I would appreciate details of the qualification awarded on completion, and whether it is formally recognised by employers in this field.\n\nI would be happy to supply any documents you require in support of my application. I look forward to receiving this information at your earliest convenience.\n\nYours faithfully,\nA. Gregoret" },
+    { id:"t1e", tone:"Informal", title:"Thanking a friend",
+      body:["You recently stayed with a friend while on holiday. Write a letter to thank them."],
+      bullets:["Thank your friend for their hospitality","Mention something you particularly enjoyed","Invite them to stay with you in the future"],
+      model:"Hey Lucas,\n\nI've just arrived home safely, and I wanted to write straight away to say a massive thank you for having me to stay last week. You really went out of your way to make me feel welcome, and I honestly couldn't have asked for a better host.\n\nI had such a fantastic time from start to finish, but the day trip to the lake was easily the highlight for me. That little picnic we put together, with the sun setting over the water, is something I won't forget in a hurry — it was the perfect end to the trip.\n\nNow it's my turn to return the favour. You would be more than welcome to come and stay with me whenever suits you; my spare room is always ready, and there's plenty around here to keep us busy. Summer is probably the best time, so have a think about it and let me know.\n\nThanks again for everything, Lucas. Give my best to the family.\n\nSpeak soon,\nAdri" }
+  ];
+
+  // ---- Task 2 essay prompts ----
+  var task2 = [
+    { id:"t2a", type:"Opinion", title:"Remote work",
+      body:["Some people believe that working from home is more productive than working in an office. To what extent do you agree or disagree?"],
+      note:"State your stance clearly in the introduction and hold it throughout the essay.",
+      model:"It is increasingly argued that employees achieve more when they work remotely rather than commuting to a traditional office. I largely agree with this view, primarily because home-based work removes many everyday distractions and grants staff greater control over their time.\n\nThe most compelling argument in favour of remote work is the elimination of unproductive interruptions. In a typical office, workers are frequently drawn into impromptu conversations and lengthy meetings that add little value. At home, by contrast, individuals can concentrate on complex tasks for sustained periods, which tends to raise the quality of their output.\n\nFurthermore, flexible working hours allow people to operate at their most alert. A parent might complete demanding work early in the morning, whereas a night owl could be far more effective in the evening. This autonomy, in my experience, translates directly into stronger performance.\n\nThat said, remote work is not universally superior; roles that depend on close collaboration may suffer without face-to-face contact. On balance, however, the productivity gains for most knowledge workers outweigh these drawbacks.\n\nIn conclusion, while office environments retain certain advantages, I firmly believe that, for the majority of employees, working from home is the more productive arrangement." },
+    { id:"t2b", type:"Discussion", title:"Online vs classroom education",
+      body:["Some people think online learning is as effective as traditional classroom teaching, while others disagree. Discuss both views and give your own opinion."],
+      note:"Devote one paragraph to each view before giving your opinion.",
+      model:"The rise of digital platforms has fuelled a debate about whether online learning can genuinely rival the traditional classroom. While both models have merit, I believe their effectiveness depends heavily on the learner and the subject.\n\nThose who champion online education point to its flexibility and reach. Students can access world-class lectures regardless of location, revisit difficult material as often as they wish, and study around work commitments. For self-motivated adults, this convenience can make learning far more attainable.\n\nOn the other hand, advocates of conventional teaching emphasise the value of direct human interaction. A classroom allows teachers to gauge confusion instantly, encourages spontaneous discussion, and provides a structured environment that keeps less disciplined students on track — qualities that a screen struggles to replicate.\n\nIn my view, neither approach is inherently superior. Online learning suits theoretical, self-paced subjects and independent learners, whereas practical or discussion-based courses benefit enormously from a physical classroom. The most effective solution is often a blend of the two.\n\nTo conclude, although online learning offers unmatched flexibility, traditional teaching still delivers irreplaceable interpersonal benefits, and the ideal balance varies from one context to another." },
+    { id:"t2c", type:"Problem & Solution", title:"Urban congestion",
+      body:["Traffic congestion is becoming a serious problem in many cities. What are the causes of this problem, and what measures could be taken to solve it?"],
+      note:"One paragraph for causes, one for solutions. Be specific.",
+      model:"Traffic congestion has become an everyday frustration in cities across the world, bringing pollution, wasted time and rising stress. This essay will examine the main causes of the problem before proposing several realistic solutions.\n\nThe root of the issue lies chiefly in the overwhelming number of private vehicles. As incomes have grown, car ownership has become a symbol of status and convenience, and many commuters prefer the comfort of their own vehicle to overcrowded public transport. This is compounded by inadequate road infrastructure and poor urban planning, which concentrate offices and services in central districts.\n\nSeveral measures could ease the situation. Firstly, governments should invest heavily in reliable, affordable public transport, making buses and trains a genuine alternative to driving. Secondly, congestion charges, such as those introduced in London, can discourage unnecessary car journeys into busy areas. Finally, promoting flexible working and cycling infrastructure would reduce the number of vehicles on the road during peak hours.\n\nIn conclusion, urban congestion stems largely from excessive car use and weak planning, but a combination of better public transport, financial deterrents and smarter working patterns could significantly relieve the pressure on our cities." },
+    { id:"t2d", type:"Advantages & Disadvantages", title:"Global tourism",
+      body:["More and more people are travelling abroad for holidays. Do the advantages of this trend outweigh the disadvantages?"],
+      note:"Weigh both sides and take a clear position on which one outweighs the other.",
+      model:"International tourism has expanded dramatically in recent decades, with affordable flights placing distant destinations within reach of ordinary travellers. Although this trend brings certain drawbacks, I believe its benefits are considerably greater.\n\nOn the negative side, mass tourism can place enormous strain on popular destinations. Fragile historical sites and natural environments are often damaged by sheer visitor numbers, and local residents may find their neighbourhoods overcrowded and their cost of living driven upwards. The carbon emissions generated by frequent air travel are a further legitimate concern.\n\nNevertheless, the advantages are substantial. Tourism is a powerful engine of economic growth, creating employment for millions in hospitality, transport and retail, particularly in developing nations that depend on visitor spending. Just as importantly, travel fosters cultural understanding: when people experience unfamiliar customs first-hand, they tend to return home more tolerant and open-minded.\n\nWhile the environmental and social costs must be managed through responsible policies, these problems are not insurmountable. The economic opportunities and cross-cultural benefits, by contrast, have a lasting and transformative impact.\n\nIn conclusion, despite the genuine pressures that tourism creates, I am convinced that its economic and cultural advantages clearly outweigh the disadvantages." },
+    { id:"t2e", type:"Two-part Question", title:"Consumerism",
+      body:["In many countries, people now buy a greater number of consumer goods than ever before. Why is this happening? Is it a positive or negative development?"],
+      note:"Answer both questions explicitly, one per paragraph.",
+      model:"People today purchase consumer goods on a scale that would have been unimaginable a few generations ago. This essay will explore the reasons behind this behaviour and argue that, on balance, it is a largely negative development.\n\nThere are two principal drivers of rising consumption. The first is affordability: mass production and global trade have made clothes, electronics and household items remarkably cheap, so buying has become effortless. The second is relentless advertising, which continually persuades consumers that newer products will bring status or happiness, fuelling a culture of constant upgrading.\n\nWhile this trend supports economic activity, I regard its overall effect as harmful. Excessive consumption generates vast quantities of waste, as functioning goods are discarded simply because a newer model exists, placing a heavy burden on the environment. Moreover, the pursuit of material possessions can trap individuals in debt and foster dissatisfaction, since there is always something else to buy.\n\nIn conclusion, cheap production and aggressive marketing have driven a surge in consumer spending, but the environmental damage and personal cost associated with this behaviour lead me to view it as a predominantly negative trend." }
+  ];
+
+  // ---- Game: Register Radar ----
+  var registerBank = [
+    { stem:"Choose the correct opening for a <b>formal</b> letter to a company you do not know.", opts:["Dear Sir or Madam,","Hi there,","Dear Mr Smith,","Hey!"], correct:0, exp:"When you <b>don't know the recipient's name</b> in a formal letter, use <i>Dear Sir or Madam,</i> and close with <i>Yours faithfully</i>." },
+    { stem:"Which sign-off matches a letter that opens with <i>Dear Mr Johnson,</i>?", opts:["Yours sincerely,","Yours faithfully,","Cheers,","Love,"], correct:0, exp:"If you <b>know the name</b> → <i>Yours sincerely</i>. If you <b>don't</b> (Dear Sir or Madam) → <i>Yours faithfully</i>." },
+    { stem:"Classify the register:", quote:"I would be grateful if you could look into this matter as soon as possible.", opts:["Formal","Informal","Colloquial","Slang"], correct:0, exp:"<i>I would be grateful if you could…</i> is a polite, formal structure — ideal for requests in a formal Task 1 letter." },
+    { stem:"Classify the register:", quote:"Give me a shout when you're free and we'll sort something out.", opts:["Informal","Formal","Neutral formal","Academic"], correct:0, exp:"<i>Give me a shout</i> and <i>sort something out</i> are colloquial phrasal verbs — only appropriate in informal letters to friends." },
+    { stem:"A friend is writing to you. Which closing is most natural?", opts:["Take care, see you soon!","Yours faithfully,","I remain, respectfully yours,","Regards, as per my previous note,"], correct:0, exp:"In informal letters the sign-off is warm and short: <i>Take care</i>, <i>Cheers</i>, <i>Speak soon</i>, <i>Lots of love</i>." },
+    { stem:"Rewrite in a formal register: <i>“I want you to fix it.”</i>", opts:["I would appreciate it if you could resolve the issue.","Fix it please.","You need to fix it now.","Can you just fix it?"], correct:0, exp:"Formal English avoids direct imperatives and uses polite modals: <i>I would appreciate it if…</i>, <i>Could you possibly…</i>." },
+    { stem:"Classify the register:", quote:"I am writing to express my dissatisfaction with the service I received.", opts:["Formal (complaint)","Informal","Friendly semi-formal","Spoken neutral"], correct:0, exp:"<i>I am writing to express my dissatisfaction</i> is the standard opener for a formal complaint in Task 1." },
+    { stem:"To ask your <b>boss</b> for something (semi-formal), which opening works best?", opts:["Dear Mr Adams,","Hey boss,","To whom it may concern,","Dear Sir or Madam,"], correct:0, exp:"With someone you know but keep professional distance: <i>Dear + title + surname</i>. <i>To whom it may concern</i> sounds too impersonal here." },
+    { stem:"Which one is <b>too informal</b> for a letter to an institution?", opts:["Thanks a million, you're a lifesaver!","Thank you for your assistance.","I appreciate your help.","Thank you in advance."], correct:0, exp:"<i>Thanks a million, you're a lifesaver</i> is colloquial. Formal: <i>Thank you for your assistance</i> or <i>I would appreciate your help</i>." },
+    { stem:"Classify the register:", quote:"Could you possibly let me know whether the room is still available?", opts:["Polite formal","Informal","Rude","Slang"], correct:0, exp:"<i>Could you possibly…</i> is an indirect, very polite request — excellent for lifting the register in a formal Task 1 letter." },
+    { stem:"In an informal letter you want to sound natural. Which phrase fits?", opts:["I can't wait to see you!","I look forward to your prompt reply.","Please find enclosed the details.","I trust this letter finds you well."], correct:0, exp:"<i>I can't wait to see you</i> conveys genuine enthusiasm, typical of the informal register between friends." },
+    { stem:"Rewrite formally: <i>“Sorry, but I can't come.”</i>", opts:["I regret to inform you that I will be unable to attend.","Sorry, no can do.","I can't make it, sorry.","Won't be coming, sadly."], correct:0, exp:"<i>I regret to inform you that…</i> is the formal formula for delivering bad news politely." }
+  ];
+
+  // ---- Game: Essay Detective ----
+  var essaytypeBank = [
+    { stem:"Identify the Task 2 type:", quote:"Some people think that children should start school at a very early age. To what extent do you agree or disagree?", opts:["Opinion (Agree/Disagree)","Discussion (both views)","Problem & Solution","Advantages & Disadvantages"], correct:0, exp:"<i>To what extent do you agree or disagree</i> = <b>Opinion</b>. Take a clear stance and defend it throughout the essay." },
+    { stem:"Identify the Task 2 type:", quote:"Some people prefer to live in a house, while others think that flats are better. Discuss both views and give your own opinion.", opts:["Discussion + Opinion","Opinion","Problem & Solution","Two-part Question"], correct:0, exp:"<i>Discuss both views and give your own opinion</i> = <b>Discussion</b>. One paragraph per view + your opinion (ideally previewed in the intro)." },
+    { stem:"Identify the Task 2 type:", quote:"Many people are working longer hours and have less free time. What are the causes, and how can this situation be improved?", opts:["Problem & Solution (Cause/Solution)","Discussion","Opinion","Advantages & Disadvantages"], correct:0, exp:"<i>Causes … how can it be improved</i> = <b>Cause/Solution</b>. Paragraph 1: causes. Paragraph 2: concrete solutions." },
+    { stem:"Identify the Task 2 type:", quote:"More students are choosing to study abroad. Do the advantages of this outweigh the disadvantages?", opts:["Advantages & Disadvantages","Opinion","Problem & Solution","Discussion"], correct:0, exp:"<i>Do the advantages outweigh the disadvantages</i> = <b>Advantages/Disadvantages</b>. Weigh both sides and decide which is stronger." },
+    { stem:"Identify the Task 2 type:", quote:"Nowadays many people shop online. Why do people shop online? Is this a positive or negative development?", opts:["Two-part Question","Opinion","Discussion","Problem & Solution"], correct:0, exp:"Two direct questions (<i>Why…? Is this positive or negative?</i>) = <b>Two-part Question</b>. Answer <b>both</b> explicitly." },
+    { stem:"Where should your opinion appear in an <b>Agree/Disagree</b> essay?", opts:["In the introduction and reinforced in the conclusion","Only in the conclusion","No opinion should be given","Only in one middle paragraph"], correct:0, exp:"In an Opinion essay, your stance must be <b>clear from the introduction</b> and stay consistent — key to a Band 8 Task Response." },
+    { stem:"In a <b>Discussion (both views)</b> essay, which mistake lowers your band?", opts:["Not giving your own opinion when it is asked for","Developing both views","Using one paragraph per view","Previewing your opinion in the intro"], correct:0, exp:"If the prompt asks for <i>your own opinion</i> and you don't give it, Task Response is penalised. Never leave it out!" },
+    { stem:"Identify the Task 2 type:", quote:"In some countries the number of people in prison is rising. What are the reasons for this? What can be done to reduce prison populations?", opts:["Problem & Solution (Cause/Solution)","Two-part Question","Opinion","Advantages & Disadvantages"], correct:0, exp:"<i>Reasons … what can be done</i> = <b>Cause/Solution</b>. It's a Problem/Solution type disguised with the word 'reasons'." },
+    { stem:"How many body paragraphs are recommended for Band 8?", opts:["2 well-developed paragraphs","4-5 short paragraphs","1 long paragraph","6 paragraphs"], correct:0, exp:"For 40 minutes and ~260-290 words, <b>2 body paragraphs</b> with well-extended ideas and examples beat many shallow paragraphs." },
+    { stem:"Identify the Task 2 type:", quote:"Some believe governments should invest in art; others think the money is better spent on public services. Discuss both views and give your opinion.", opts:["Discussion + Opinion","Advantages & Disadvantages","Opinion","Two-part Question"], correct:0, exp:"<i>Discuss both views and give your opinion</i> = <b>Discussion</b>. Treat each stance fairly before taking a side." }
+  ];
+
+  // ---- Game: Cohesion Bridge (linking words) ----
+  var cohesionBank = [
+    { stem:"Working from home saves commuting time. ____, it can blur the line between work and personal life.", opts:["However","Therefore","For example","Moreover"], correct:0, exp:"A benefit and a drawback are contrasted → a <b>contrast</b> connector: <i>However</i>. (Therefore = consequence; Moreover = addition)." },
+    { stem:"The city invested heavily in public transport. ____, congestion fell by 30% in two years.", opts:["As a result","Nevertheless","On the other hand","In contrast"], correct:0, exp:"Cause → effect needs a <b>result</b> connector: <i>As a result / Consequently / Therefore</i>." },
+    { stem:"Online courses are flexible and affordable. ____, they allow students to learn at their own pace.", opts:["In addition","However","Despite this","Otherwise"], correct:0, exp:"One more advantage is added → an <b>addition</b> connector: <i>In addition / Moreover / Furthermore</i>." },
+    { stem:"____ the high cost, many families still choose to travel abroad every summer.", opts:["Despite","Although","However","Because of"], correct:0, exp:"<i>Despite</i> + <b>noun/gerund</b> (Despite the high cost). <i>Although</i> needs subject+verb (Although it is costly)." },
+    { stem:"____ it was raining heavily, the outdoor event went ahead as planned.", opts:["Although","Despite","In spite of","Due to"], correct:0, exp:"<i>Although</i> + <b>full clause</b> (subject+verb). <i>Despite/In spite of</i> would take a noun: <i>Despite the rain…</i>." },
+    { stem:"Some argue that tourism harms the environment. ____, its economic benefits are undeniable.", opts:["On the other hand","Therefore","Similarly","In addition"], correct:0, exp:"The opposing view is introduced → <b>contrast between two sides</b>: <i>On the other hand</i>." },
+    { stem:"Governments should promote cycling. ____, they could build more dedicated bike lanes.", opts:["For instance","Nevertheless","In conclusion","On the contrary"], correct:0, exp:"A concrete example of a measure is given → an <b>example</b> connector: <i>For instance / For example</i>." },
+    { stem:"The plan is expensive and slow to implement. ____, it remains the only realistic option.", opts:["Nonetheless","Consequently","Likewise","Furthermore"], correct:0, exp:"Strong contrast despite the drawbacks → <i>Nonetheless / Nevertheless</i> (= 'even so')." },
+    { stem:"____, I firmly believe that the benefits of remote work outweigh its drawbacks.", opts:["In conclusion","For example","Moreover","However"], correct:0, exp:"Closing the essay → a <b>conclusion</b> signal: <i>In conclusion / To conclude / To sum up</i>." },
+    { stem:"Cars cause pollution and noise. ____, they encourage a sedentary lifestyle.", opts:["What is more","In contrast","As a result","Otherwise"], correct:0, exp:"An extra problem in the same line is added → emphatic addition: <i>What is more / Furthermore</i>." }
+  ];
+
+  // ---- Game: Collocation Forge ----
+  var collocationBank = [
+    { stem:"Complete the natural collocation (Band 8):", quote:"The new policy could help to ____ the gap between rich and poor.", opts:["bridge","build","make","do"], correct:0, exp:"<b>bridge the gap</b> is a fixed collocation. 'build/make/do the gap' do not exist in natural English." },
+    { stem:"Choose the verb that collocates with <i>“attention”</i>:", quote:"Advertising is designed to ____ the consumer's attention.", opts:["capture","catch up","take","make"], correct:0, exp:"<b>capture / attract / grab attention</b>. 'Take attention' or 'make attention' are common errors." },
+    { stem:"Complete:", quote:"The government must ____ strict measures to reduce emissions.", opts:["implement","do","make","put"], correct:0, exp:"<b>implement / introduce / enforce measures</b> sound formal and precise — much better than 'do measures'." },
+    { stem:"Choose the correct collocation:", quote:"Studying abroad can ____ a positive impact on a young person's career.", opts:["have","do","make","give"], correct:0, exp:"<b>have an impact (on)</b>. Also valid: <i>make an impact</i>, but not 'do/give an impact'." },
+    { stem:"Complete (Band 8):", quote:"Regular exercise plays a crucial ____ in maintaining good health.", opts:["role","part","job","function"], correct:0, exp:"<b>play a crucial/vital role in</b> is a high-value collocation. 'Play a part' also exists, but 'role' is more common here." },
+    { stem:"Choose the adjective that collocates with <i>“difference”</i>:", quote:"Better public transport could make a ____ difference to congestion.", opts:["significant","big big","strong","hard"], correct:0, exp:"<b>a significant / substantial / marked difference</b>. Avoid repeating 'big'; raise the register with 'significant'." },
+    { stem:"Complete:", quote:"Governments should ____ awareness of environmental issues.", opts:["raise","rise","lift","grow"], correct:0, exp:"<b>raise awareness</b> (transitive verb). Note: <i>rise</i> is intransitive and takes no object." },
+    { stem:"Choose the collocation:", quote:"The company failed to ____ its long-term goals.", opts:["achieve","reach up","do","win"], correct:0, exp:"<b>achieve / meet / attain goals</b>. 'Reach' works with 'target' but not as 'reach up'." },
+    { stem:"Complete (formal):", quote:"This essay will ____ both the causes and the solutions to the problem.", opts:["examine","look","see","watch"], correct:0, exp:"<b>examine / explore / address an issue</b> — academic verbs that lift the introduction." },
+    { stem:"Choose the noun that collocates with <i>“take”</i>:", quote:"We must all take ____ for protecting the environment.", opts:["responsibility","charge of it","care to","account"], correct:0, exp:"<b>take responsibility (for)</b> is the natural, formal collocation in essays." }
+  ];
+
+  // ---- Game: Paraphrase Workshop (self-scored) ----
+  var paraphraseBank = [
+    { basic:"Many people think that cars are bad for the environment.", model:"It is widely believed that private vehicles have a detrimental effect on the environment.", tips:["<i>Many people think</i> → <i>It is widely believed / A common view is that</i>","<i>bad for</i> → <i>have a detrimental/harmful effect on</i>","<i>cars</i> → <i>private vehicles / motor vehicles</i>"] },
+    { basic:"Nowadays, more and more students study online.", model:"In recent years, a growing number of students have opted to pursue their education remotely.", tips:["<i>Nowadays</i> → <i>In recent years / These days</i>","<i>more and more</i> → <i>a growing/increasing number of</i>","<i>study online</i> → <i>pursue their education remotely / learn via digital platforms</i>"] },
+    { basic:"The government should give more money to hospitals.", model:"Authorities ought to allocate greater funding to healthcare institutions.", tips:["<i>government</i> → <i>authorities / policymakers</i>","<i>give more money</i> → <i>allocate greater funding / increase investment</i>","<i>hospitals</i> → <i>healthcare institutions / medical facilities</i>"] },
+    { basic:"Living in a big city has a lot of problems.", model:"Residing in a major metropolis poses a range of significant challenges.", tips:["<i>living</i> → <i>residing / dwelling</i>","<i>big city</i> → <i>major metropolis / large urban centre</i>","<i>a lot of problems</i> → <i>a range of significant challenges / numerous drawbacks</i>"] },
+    { basic:"It is important to protect the environment.", model:"Safeguarding the natural world is of paramount importance.", tips:["<i>It is important to</i> → <i>… is of paramount importance / is crucial</i>","<i>protect</i> → <i>safeguard / preserve / conserve</i>","<i>the environment</i> → <i>the natural world / our surroundings</i>"] },
+    { basic:"Technology has changed the way we communicate.", model:"Technological advances have transformed the manner in which we interact.", tips:["<i>technology</i> → <i>technological advances / innovation</i>","<i>changed</i> → <i>transformed / revolutionised / reshaped</i>","<i>the way we communicate</i> → <i>the manner in which we interact / how we connect</i>"] },
+    { basic:"Young people spend too much time on their phones.", model:"Adolescents devote an excessive amount of time to their mobile devices.", tips:["<i>young people</i> → <i>adolescents / the younger generation</i>","<i>spend too much time</i> → <i>devote an excessive amount of time</i>","<i>phones</i> → <i>mobile devices / smartphones</i>"] },
+    { basic:"Learning a new language is very useful.", model:"Acquiring a foreign language offers considerable benefits.", tips:["<i>learning</i> → <i>acquiring / mastering</i>","<i>very useful</i> → <i>offers considerable benefits / is highly advantageous</i>","Turn the adjective into a noun to vary your structure (nominalisation)."] }
+  ];
+
+  var GAMES = {
+    register: { title:"Register Radar", sub:"Formal, semi-formal or informal — the key to Task 1.", bank:registerBank, xp:8 },
+    essaytype: { title:"Essay Detective", sub:"Identify the question type before you write.", bank:essaytypeBank, xp:8 },
+    cohesion: { title:"Cohesion Bridge", sub:"The right connector in the right gap.", bank:cohesionBank, xp:6 },
+    collocation: { title:"Collocation Forge", sub:"Natural word pairings that lift your lexis.", bank:collocationBank, xp:6 }
+  };
+
+  /* ============================ RENDER HELPERS ============================ */
+  var main = document.getElementById("main");
+  var toastEl = document.getElementById("toast");
+  var toastTimer = null;
+  function toast(msg, xp){
+    toastEl.innerHTML = xp ? (msg.replace(/\+\d+ XP/, '') + '<span class="xp">+'+xp+' XP</span>') : msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove("show"); }, 1900);
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  var CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><path d="m5 12 5 5 9-11"/></svg>';
+
+  function refreshChips(){
+    var els = document.querySelectorAll("[data-chip-xp]"); for(var i=0;i<els.length;i++) els[i].textContent = state.xp;
+    var band = bandFromXP(state.xp);
+    var be = document.querySelectorAll("[data-chip-band]"); for(var j=0;j<be.length;j++) be[j].innerHTML = band.toFixed(1);
+    var se = document.querySelectorAll("[data-chip-streak]"); for(var k=0;k<se.length;k++) se[k].textContent = state.streak;
+    // nav badges
+    setBadge("nb-t1", state.written.t1);
+    setBadge("nb-t2", state.written.t2);
+    ["register","essaytype","cohesion","collocation","paraphrase"].forEach(function(g){
+      var rec = state.games[g];
+      setBadge("nb-"+g, rec && rec.best!=null ? (rec.best+"★") : "—");
+    });
+    setBadge("nb-log", (state.log && state.log.length) || 0);
+  }
+  function setBadge(id, val){ var e=document.getElementById(id); if(e) e.textContent = val; }
+
+  /* ============================ VIEWS ============================ */
+  var views = {};
+
+  views.home = function(){
+    var band = bandFromXP(state.xp);
+    var pct = Math.max(0, Math.min(100, (band-5)/(8.5-5)*100));
+    var totalWritten = state.written.t1 + state.written.t2;
+    var gamesPlayed = 0, gid;
+    for(gid in state.games){ gamesPlayed += (state.games[gid].plays||0); }
+
+    var tiles = [
+      {v:"task1", t:"Task 1 · Letters", d:"Write formal and informal letters with a timer and a Band 8 checklist.", pill:'<span class="pill t1">20 min · 150+ words</span>'},
+      {v:"task2", t:"Task 2 · Essays", d:"Practise all 5 essay types with model answers.", pill:'<span class="pill t2">40 min · 250+ words</span>'},
+      {v:"register", t:"Register Radar", d:"Formal or informal? Master the tone each letter demands.", pill:'<span class="pill g">Game</span>'},
+      {v:"essaytype", t:"Essay Detective", d:"Identify the question type in seconds.", pill:'<span class="pill g">Game</span>'},
+      {v:"cohesion", t:"Cohesion Bridge", d:"The right linking word to connect your ideas.", pill:'<span class="pill g">Game</span>'},
+      {v:"paraphrase", t:"Paraphrase Workshop", d:"Turn basic sentences into high-band English.", pill:'<span class="pill g">Game</span>'}
+    ];
+
+    var html = ''
+    + topbar("The Road to Band 8", "Your progress, your practice and your games — all in one place.")
+    + '<div class="grid g2">'
+      + '<div class="card band-card">'
+        + '<div class="band-head">'
+          + '<div><div class="band-now" data-chip-band>'+band.toFixed(1)+'<small>/ 9.0</small></div>'
+            + '<div style="font-size:12.5px;color:var(--ink-faint);margin-top:2px">'+esc(bandLabel(band))+' · practice estimate</div></div>'
+          + '<div class="band-label">Next goal<br><b>Band 8.0 — Very good user</b></div>'
+        + '</div>'
+        + '<div class="meter"><i style="width:'+pct+'%"></i></div>'
+        + '<div class="ticks"><span>5.0</span><span>6.0</span><span>7.0</span><span>8.0</span><span>9.0</span></div>'
+      + '</div>'
+      + '<div class="card" style="padding:20px 22px;display:flex;flex-direction:column;justify-content:center;gap:14px">'
+        + statRow("Total XP", '<span data-chip-xp>'+state.xp+'</span>', "earned")
+        + statRow("Daily streak", '<span data-chip-streak style="color:var(--gold)">'+state.streak+'</span>', "days in a row")
+        + statRow("Texts written", totalWritten, "T1 + T2")
+        + statRow("Game rounds", gamesPlayed, "completed")
+      + '</div>'
+    + '</div>'
+    + '<div class="section-title">Start here <span class="rule"></span></div>'
+    + '<div class="grid g3">'
+      + tiles.map(function(x){
+          return '<div class="card tile" data-go="'+x.v+'">'
+            + x.pill
+            + '<h3>'+esc(x.t)+'</h3><p>'+esc(x.d)+'</p>'
+            + '<div class="foot"><span>Open</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>'
+          + '</div>';
+        }).join('')
+    + '</div>'
+    + '<div class="section-title">The Band 8 formula <span class="rule"></span></div>'
+    + '<div class="grid g2">'
+      + critCard("Task Achievement / Response", "Answer <b>every</b> part of the prompt, with a clear, well-developed position. In Task 1, cover all 3 bullet points and use the correct tone.")
+      + critCard("Coherence &amp; Cohesion", "Logical paragraphs with one central idea each. Use linking words naturally — without overdoing it. Train in <b>Cohesion Bridge</b>.")
+      + critCard("Lexical Resource", "Precise vocabulary and natural collocations. Paraphrase instead of repeating. Train in <b>Collocation Forge</b> and <b>Paraphrase Workshop</b>.")
+      + critCard("Grammatical Range", "Mix your structures: conditionals, relative clauses, passives. Prioritise <b>accuracy</b> — few errors matter more than complexity.")
+    + '</div>';
+
+    main.innerHTML = html;
+    bindGo();
+    refreshChips();
+  };
+
+  function statRow(k, v, sub){
+    return '<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">'
+      + '<span style="font-size:13px;color:var(--ink-soft)">'+k+'</span>'
+      + '<span style="font-family:var(--mono);font-size:22px;font-weight:600;font-variant-numeric:tabular-nums">'+v+' <span style="font-size:11px;color:var(--ink-faint);font-weight:400">'+sub+'</span></span>'
+    + '</div>';
+  }
+  function critCard(t, d){
+    return '<div class="card" style="padding:18px 20px">'
+      + '<h3 style="font-family:var(--serif);font-size:15px;margin:0 0 6px">'+t+'</h3>'
+      + '<p style="margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.55">'+d+'</p></div>';
+  }
+
+  function topbar(title, sub){
+    var band = bandFromXP(state.xp);
+    return '<div class="topbar">'
+      + '<div class="titles"><h2>'+esc(title)+'</h2><p>'+sub+'</p></div>'
+      + '<div class="stat-chips">'
+        + '<div class="chip"><div><div class="k">Band</div><div class="v" data-chip-band>'+band.toFixed(1)+'<small>/9</small></div></div></div>'
+        + '<div class="chip"><div><div class="k">XP</div><div class="v" data-chip-xp>'+state.xp+'</div></div></div>'
+        + '<div class="chip streak"><div><div class="k">Streak</div><div class="v"><span data-chip-streak>'+state.streak+'</span><small>🔥</small></div></div></div>'
+      + '</div></div>';
+  }
+
+  /* ---------- Writing views (Task 1 / Task 2) ---------- */
+  var writeState = { t1:0, t2:0 };
+
+  function writingView(kind){
+    var bank = kind==="t1" ? task1 : task2;
+    var idx = writeState[kind] % bank.length;
+    var p = bank[idx];
+    var isT1 = kind==="t1";
+    var minWords = isT1 ? 150 : 250;
+    var minutes = isT1 ? 20 : 40;
+    var checkItems = isT1 ? T1_CHECKS : T2_CHECKS;
+    var saved = state.checks[p.id] || [];
+
+    var bodyHtml = p.body.map(function(x){ return '<p>'+esc(x)+'</p>'; }).join('');
+    var bulletsHtml = '';
+    if(isT1){
+      bulletsHtml = '<ul class="bullets">' + p.bullets.map(function(b,i){ return '<li data-n="'+(i+1)+'">'+esc(b)+'</li>'; }).join('') + '</ul>';
+    }
+    var meta = isT1
+      ? '<span class="pill t1">Task 1 · Letter</span><span class="pill" style="background:var(--card-2);color:var(--ink-soft)">Tone: '+esc(p.tone)+'</span>'
+      : '<span class="pill t2">Task 2 · Essay</span><span class="pill" style="background:var(--card-2);color:var(--ink-soft)">'+esc(p.type)+'</span>';
+
+    main.innerHTML =
+      topbar(isT1 ? "Task 1 · Letters" : "Task 2 · Essays", isT1 ? "Write a letter of at least 150 words in 20 minutes." : "Write an essay of at least 250 words in 40 minutes.")
+      + '<div class="pad-tools">'
+        + '<button class="btn ghost" id="prevPrompt">◀ Previous</button>'
+        + '<button class="btn ghost" id="nextPrompt">New prompt ▶</button>'
+        + '<div class="timer" id="timer">'+pad2(minutes)+':00</div>'
+        + '<button class="btn" id="timerBtn">▶ Start</button>'
+      + '</div>'
+      + '<div class="pad-layout">'
+        + '<div>'
+          + '<div class="card prompt-card">'
+            + '<div class="meta">'+meta+'</div>'
+            + '<div style="font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:8px">'+esc(p.title)+'</div>'
+            + '<div class="body">'+bodyHtml+bulletsHtml+'</div>'
+            + '<div class="instruct">'+(isT1
+                ? 'Open your letter appropriately. Write at least <b>150 words</b>. Cover all <b>3 points</b>.'
+                : (p.note ? esc(p.note)+' Write at least <b>250 words</b>.' : 'Write at least <b>250 words</b>.'))+'</div>'
+          + '</div>'
+          + '<div style="display:flex;align-items:center;margin:12px 2px 6px">'
+            + '<div class="wc" id="wc" style="margin-left:0">Words: <b>0</b> / '+minWords+'</div>'
+            + '<button class="btn ghost model-toggle" id="modelBtn" style="margin-left:auto">Show model answer</button>'
+          + '</div>'
+          + '<textarea class="pad" id="pad" placeholder="'+(isT1?'Dear...':'Write your introduction here...')+'" spellcheck="true"></textarea>'
+          + '<div class="model-answer" id="modelAns"><h5>Model answer (Band 8+)</h5>'+esc(p.model).replace(/\n/g,'<br>')+'</div>'
+        + '</div>'
+        + '<div class="card checklist">'
+          + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">'
+            + '<h4 style="margin:0">Band 8 auto-check</h4>'
+            + '<span class="live-band">Est. band <b id="liveBand">–</b></span>'
+          + '</div>'
+          + '<p class="sub">Updates automatically as you write. Weak points show how to fix them.</p>'
+          + checkItems.map(function(c,i){
+              return '<div class="check-item" id="ci-'+i+'" data-ci="'+i+'"><div class="check-box"></div>'
+                + '<div class="ct"><b>'+esc(c.t)+'</b>'+esc(c.d)+'<span class="advice"></span></div></div>';
+            }).join('')
+          + '<button class="btn primary" id="evalBtn" style="width:100%;margin-top:14px;justify-content:center">Evaluate &amp; save errors</button>'
+          + '<button class="btn primary" id="aiEvalBtn" hidden style="width:100%;margin-top:8px;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--gold));border:none">🤖 Correct with AI (real Band 8)</button>'
+          + '<button class="btn" id="aiBtn" hidden style="width:100%;margin-top:8px;justify-content:center">📋 Copy prompt for Claude</button>'
+          + '<div class="report" id="report" hidden></div>'
+        + '</div>'
+      + '</div>';
+
+    refreshChips();
+    bindWriting(kind, p, minWords, minutes);
+  }
+
+  var T1_CHECKS = [
+    {t:"Correct opening and closing", d:" — greeting and sign-off that match the tone (Yours faithfully/sincerely/Take care)."},
+    {t:"Clear purpose in the first line", d:" — 'I am writing to…' or an informal equivalent."},
+    {t:"All 3 bullet points covered", d:" — each point developed, not just mentioned."},
+    {t:"Consistent tone", d:" — formal or informal from start to finish, never mixed."},
+    {t:"150+ words in paragraphs", d:" — split by idea, not one single block."}
+  ];
+  var T2_CHECKS = [
+    {t:"Intro with paraphrase + thesis", d:" — reword the question and preview your position."},
+    {t:"One central topic per paragraph", d:" — a clear topic sentence to open each body paragraph."},
+    {t:"Ideas extended with examples", d:" — explain and exemplify, don't just list."},
+    {t:"Natural cohesion", d:" — varied, well-used linking words."},
+    {t:"Conclusion restates the position", d:" — no new ideas; close the argument."},
+    {t:"250+ words, grammatical range", d:" — mix structures with accuracy."}
+  ];
+
+  function pad2(n){ return (n<10?"0":"")+n; }
+
+  /* ---------- Automatic writing analysis (offline heuristics) ---------- */
+  function analyzeWriting(kind, p, raw){
+    var text = (raw||"").replace(/\r/g,"");
+    var trimmed = text.trim();
+    var words = trimmed ? trimmed.split(/\s+/).length : 0;
+    var paras = trimmed.split(/\n+/).map(function(s){ return s.trim(); }).filter(Boolean);
+    var sentArr = trimmed.split(/[.!?]+/).map(function(s){ return s.trim(); }).filter(function(s){ return s.split(/\s+/).filter(Boolean).length >= 2; });
+    var firstPara = (paras[0]||"").toLowerCase();
+    var secondPara = (paras[1]||"").toLowerCase();
+    var lastPara = (paras[paras.length-1]||"").toLowerCase();
+    var firstLine = (trimmed.split("\n")[0]||"").trim();
+    var contractions = (text.match(/\b[\w]+['’](t|s|re|ve|ll|m|d)\b/gi)||[]).length;
+
+    var checks = [], issues = [];
+    function ck(status, advice, cat){ checks.push({ status:status, advice:advice||"", cat:cat }); }
+    function iss(sev, cat, title, fix){ issues.push({ sev:sev, cat:cat, title:title, fix:fix||"" }); }
+
+    if(kind === "t1"){
+      var hasOpen = /^(dear|hi|hello|hey)\b/i.test(firstLine);
+      var formalClose = /(yours faithfully|yours sincerely|yours truly|kind regards|best regards|warm regards)/i.test(text);
+      var informalClose = /(take care|cheers|speak soon|lots of love|best wishes|all the best|see you soon|see you|love,|thanks again)/i.test(text);
+      if(!hasOpen && !(formalClose||informalClose)) ck("fail","Add a greeting (“Dear Sir or Madam,” or “Hi Sam,”) and a matching sign-off.","Opening/closing");
+      else if(!hasOpen) ck("warn","Start with a proper greeting on the first line (“Dear…”, “Hi…”).","Opening/closing");
+      else if(!(formalClose||informalClose)) ck("warn","Add a sign-off (Yours faithfully / Yours sincerely / Take care).","Opening/closing");
+      else if(/dear sir or madam/i.test(text) && !/yours faithfully/i.test(text)) ck("warn","“Dear Sir or Madam” should close with “Yours faithfully”.","Opening/closing");
+      else if(/dear (mr|mrs|ms|dr|prof)/i.test(text) && /yours faithfully/i.test(text)) ck("warn","You know the name, so close with “Yours sincerely”, not “Yours faithfully”.","Opening/closing");
+      else if(/^(hi|hey|hello)\b/i.test(firstLine) && /yours (faithfully|sincerely)/i.test(text)) ck("warn","Tone mismatch: an informal “Hi…” opening shouldn’t end with a formal “Yours…” sign-off.","Opening/closing");
+      else ck("pass","","Opening/closing");
+
+      var purpose = /(i am writing to|i'?m writing to|i am writing in order to|i am writing regarding|i wanted to|just wanted to|i am writing with regard)/i.test(firstPara + " " + secondPara);
+      ck(purpose?"pass":"warn", purpose?"":"State your purpose early: “I am writing to…” (formal) or “I just wanted to…” (informal).","Purpose");
+
+      if(words < 120) ck("fail","Too short to develop all three points — aim for 150+ words, each point explained.","Coverage");
+      else if(paras.length < 3) ck("warn","Use separate paragraphs so each of the 3 required points is clearly covered.","Coverage");
+      else ck("pass","","Coverage");
+
+      var expectFormal = /formal/i.test(p.tone);
+      if(expectFormal && contractions >= 3) ck("warn","This is a "+p.tone.toLowerCase()+" letter — avoid contractions (don’t → do not) and casual phrases.","Tone");
+      else if(!expectFormal && /(yours faithfully|i would be grateful|i am writing to express my dissatisfaction)/i.test(text)) ck("warn","This is an informal letter — very formal phrases like “Yours faithfully” feel out of place.","Tone");
+      else ck("pass","","Tone");
+
+      if(words < 150) ck("fail","Only "+words+" words — you need at least 150 (under-length is penalised).","Length");
+      else if(paras.length < 2) ck("warn","Break your letter into paragraphs.","Length");
+      else ck("pass","","Length");
+
+    } else {
+      var thesis = /(i (firmly|strongly|largely|personally|completely|)\s*(agree|disagree|believe|think)|in my opinion|this essay will|i am of the (opinion|view)|from my perspective|i would argue|i am inclined to)/i.test(firstPara);
+      ck(thesis?"pass":"warn", thesis?"":"Add a clear thesis to your introduction stating your position (“I firmly believe that…”).","Thesis");
+
+      if(paras.length >= 4) ck("pass","","Paragraphs");
+      else if(paras.length === 3) ck("warn","Aim for 4 paragraphs: introduction + 2 body paragraphs + conclusion.","Paragraphs");
+      else ck("fail","Structure your essay into clear paragraphs (intro, 2 bodies, conclusion).","Paragraphs");
+
+      var examples = /(for example|for instance|such as|a case in point|e\.g\.|to illustrate|as an example)/i.test(text);
+      ck(examples?"pass":"warn", examples?"":"Support at least one idea with a concrete example (“For instance, …”).","Examples");
+
+      var linkers = ["however","moreover","furthermore","in addition","nevertheless","nonetheless","therefore","consequently","as a result","on the other hand","for instance","for example","in conclusion","to sum up","whereas","although","despite","what is more","on balance","firstly","secondly","thirdly","finally"];
+      var distinct = 0, listy = (/\bfirstly\b/i.test(text) && /\bsecondly\b/i.test(text));
+      linkers.forEach(function(l){ if(new RegExp("\\b"+l.replace(/ /g,"\\s")+"\\b","i").test(text)) distinct++; });
+      if(distinct < 3) ck("warn","Connect ideas with a few varied linking words (However, Moreover, As a result…).","Cohesion");
+      else if(listy && distinct < 6) ck("warn","Avoid mechanical listing (“Firstly… Secondly…”) — vary your connectors.","Cohesion");
+      else ck("pass","","Cohesion");
+
+      var concl = /(in conclusion|to conclude|to sum up|in summary|on balance|to summarise|in short|all in all|overall,)/i.test(lastPara);
+      ck(concl?"pass":"warn", concl?"":"Finish with a conclusion that restates your position (“In conclusion, …”).","Conclusion");
+
+      if(words < 250) ck("fail","Only "+words+" words — you need at least 250 (under-length is penalised).","Length");
+      else ck("pass","","Length");
+
+      if(contractions >= 1) iss("warn","Style","Contractions in an academic essay","Write them in full (don’t → do not, it’s → it is).");
+      if(/!/.test(text)) iss("warn","Style","Exclamation mark in a formal essay","Remove exclamation marks — keep an academic tone.");
+      if(/\betc\.?\b/i.test(text)) iss("warn","Style","“etc.” is too informal for an essay","List specific items or use “and so on”.");
+    }
+
+    /* shared diagnostics */
+    if(/\balot\b/i.test(text)) iss("error","Vocabulary","“alot” is not a word","Write “a lot”.");
+    if((text.match(/\bi\b/g)||[]).length) iss("error","Grammar","Lowercase “i” used as a pronoun","The pronoun “I” is always capitalised.");
+    if(/ {2,}/.test(text)) iss("tip","Style","Double spaces","Use single spaces between words.");
+    if(/\bthere is (many|several|a lot of|lots of|numerous|few|two|three|four|five|some)\b/i.test(text)) iss("error","Grammar","“there is” + a plural noun","Use “there are” with plural nouns.");
+    if(/\b(informations|advices|researches|equipments|knowledges|softwares|furnitures|homeworks|staffs)\b/i.test(text)) iss("error","Grammar","Uncountable noun made plural","Words like information/advice/research take no plural “s”.");
+    if(/\baccording to me\b/i.test(text)) iss("warn","Vocabulary","“according to me”","Use “In my opinion” or “I believe”.");
+    if(/\bin nowadays\b/i.test(text)) iss("warn","Grammar","“in nowadays”","“Nowadays” is used without “in”.");
+    var rep = text.match(/\b(\w+)\s+\1\b/i);
+    if(rep && !/^(that that|had had|is is)$/i.test(rep[0].replace(/\s+/g," "))) iss("warn","Style","Repeated word: “"+rep[0]+"”","Delete the duplicate.");
+    var veryC = (text.match(/\bvery\b/gi)||[]).length;
+    if(veryC >= 4) iss("tip","Vocabulary","“very” used "+veryC+" times","Swap for stronger words (very big → enormous, very good → excellent).");
+    var reallyC = (text.match(/\breally\b/gi)||[]).length;
+    if(reallyC >= 3) iss("tip","Vocabulary","“really” overused","Use precise alternatives (really important → crucial).");
+    var miss = {goverment:"government",enviroment:"environment",recieve:"receive",wich:"which",occured:"occurred",definately:"definitely",beleive:"believe",seperate:"separate",untill:"until",begining:"beginning",sucessful:"successful",responsability:"responsibility",accomodation:"accommodation",neccessary:"necessary",tommorow:"tomorrow",wether:"whether",benifit:"benefit",thier:"their",alowed:"allowed"};
+    for(var mk in miss){ if(new RegExp("\\b"+mk+"\\b","i").test(text)) iss("error","Spelling","“"+mk+"” is misspelled","Correct spelling: “"+miss[mk]+"”."); }
+    var longS = null; sentArr.forEach(function(s){ if(!longS && s.split(/\s+/).length > 45) longS = s; });
+    if(longS) iss("tip","Grammar","A very long sentence","Split it in two — long sentences invite errors and hurt clarity.");
+    var stop = {the:1,and:1,that:1,this:1,with:1,have:1,they:1,their:1,from:1,which:1,would:1,there:1,because:1,people:1,about:1,other:1,more:1,some:1,than:1,them:1,then:1,these:1,those:1,also:1,such:1,into:1,being:1,been:1,were:1,will:1,your:1,many:1,most:1,very:1,when:1,what:1,could:1,should:1};
+    var freq = {}, toks = (trimmed.toLowerCase().match(/\b[a-z]{5,}\b/g)||[]);
+    toks.forEach(function(w){ if(!stop[w]) freq[w] = (freq[w]||0)+1; });
+    var topW = null, topN = 0; for(var w in freq){ if(freq[w] > topN){ topN = freq[w]; topW = w; } }
+    if(topW && topN >= 5) iss("tip","Vocabulary","You repeat “"+topW+"” "+topN+" times","Paraphrase with synonyms to lift your Lexical Resource score.");
+
+    /* preposition & collocation errors (common ESL) */
+    var prep = [
+      [/\bdepend of\b/i, "Grammar", "“depend of”", "Use “depend on”."],
+      [/\bdiscuss about\b/i, "Grammar", "“discuss about”", "“Discuss” takes no preposition: “discuss the issue”."],
+      [/\bmarried with\b/i, "Grammar", "“married with”", "Use “married to”."],
+      [/\binterested (on|about)\b/i, "Grammar", "“interested on/about”", "Use “interested in”."],
+      [/\barrive to\b/i, "Grammar", "“arrive to”", "Use “arrive at” (a place) or “arrive in” (a city/country)."],
+      [/\bexplain me\b/i, "Grammar", "“explain me”", "Use “explain to me”."],
+      [/\b(did|do|does|doing) a purchase\b/i, "Vocabulary", "“do a purchase”", "The collocation is “make a purchase”."],
+      [/\bin the other hand\b/i, "Cohesion", "“in the other hand”", "The phrase is “on the other hand”."],
+      [/\bmore better\b/i, "Grammar", "“more better”", "“Better” is already comparative — drop “more”."],
+      [/\bmatch(es|ed|ing)? with\b/i, "Vocabulary", "“match with”", "“Match” usually needs no “with”: “match the quality”."]
+    ];
+    prep.forEach(function(r){ if(r[0].test(text)) iss("warn", r[1], r[2], r[3]); });
+    if(/(^|[.!?]\s+)(But|And|So)\b/.test(text)) iss("tip","Style","A sentence starts with “But/And/So”","In formal writing prefer “However / In addition / Therefore”.");
+    if(/[.!?]\s+[a-z]/.test(text) && !/\b(e\.g|i\.e|etc)\.\s/i.test(text)) iss("tip","Grammar","A sentence may begin with a lowercase letter","Capitalise the first word of every sentence.");
+
+    return { words:words, sentences:sentArr.length, paragraphs:paras.length, checks:checks, issues:issues, band:estimateBand(kind, words, paras.length, checks, issues) };
+  }
+
+  function estimateBand(kind, words, paras, checks, issues){
+    var minW = kind === "t1" ? 150 : 250;
+    var passes = checks.filter(function(c){ return c.status === "pass"; }).length;
+    var ratio = checks.length ? passes/checks.length : 0;
+    var errors = issues.filter(function(i){ return i.sev === "error"; }).length;
+    var warns = issues.filter(function(i){ return i.sev === "warn"; }).length;
+    var b = 5.0;
+    b += words >= minW ? 1.0 : (words >= minW*0.8 ? 0.5 : 0);
+    b += kind === "t1" ? (paras >= 3 ? 0.5 : 0) : (paras >= 4 ? 0.6 : paras === 3 ? 0.3 : 0);
+    b += ratio * 1.4;
+    b -= Math.min(1.2, errors * 0.2);
+    b -= Math.min(0.6, warns * 0.05);
+    if(words < minW*0.5) b = Math.min(b, 5.0);
+    b = Math.max(4.5, Math.min(8.5, b));
+    return Math.round(b*2)/2;
+  }
+
+  function criteriaFeedback(kind, checks, issues){
+    function catCount(names){ return issues.filter(function(i){ return names.indexOf(i.cat) >= 0; }).length; }
+    function chkRatio(idxs){ var pass=0; idxs.forEach(function(i){ if(checks[i] && checks[i].status === "pass") pass++; }); return pass/idxs.length; }
+    function mk(name, ratio, issueCount, hint){
+      var level = (ratio >= 0.75 && issueCount === 0) ? "good" : (ratio >= 0.5 && issueCount <= 1) ? "ok" : "work";
+      var txt = level === "good" ? "Looking strong." : level === "ok" ? "On track — minor fixes." : "Needs attention.";
+      return { name:name, level:level, text:txt + " " + hint };
+    }
+    var taIdx = kind === "t1" ? [0,1,2,4] : [0,1,4,5];
+    var ccIdx = kind === "t1" ? [2,4] : [1,3,4];
+    return [
+      mk("Task " + (kind === "t1" ? "Achievement" : "Response"), chkRatio(taIdx), catCount(["Coverage","Thesis","Purpose","Conclusion"]), "Answer every part fully with a clear, developed position."),
+      mk("Coherence & Cohesion", chkRatio(ccIdx), catCount(["Cohesion","Paragraphs"]), "Organise ideas into clear paragraphs and link them naturally."),
+      mk("Lexical Resource", 1 - Math.min(1, catCount(["Vocabulary","Spelling"])/3), catCount(["Vocabulary","Spelling"]), "Use precise words and natural collocations; paraphrase repeats."),
+      mk("Grammatical Range", 1 - Math.min(1, catCount(["Grammar"])/3), catCount(["Grammar"]), "Mix structures accurately; fix the grammar issues below.")
+    ];
+  }
+
+  function applyAnalysis(result){
+    result.checks.forEach(function(c, i){
+      var el = document.getElementById("ci-"+i); if(!el) return;
+      el.classList.remove("st-pass","st-warn","st-fail");
+      var box = el.querySelector(".check-box"), adv = el.querySelector(".advice");
+      if(c.status === "pass"){ el.classList.add("st-pass"); box.innerHTML = CHECK_SVG; if(adv) adv.textContent = ""; }
+      else if(c.status === "warn"){ el.classList.add("st-warn"); box.textContent = "!"; if(adv) adv.textContent = c.advice; }
+      else { el.classList.add("st-fail"); box.textContent = "×"; if(adv) adv.textContent = c.advice; }
+    });
+    var lb = document.getElementById("liveBand"); if(lb) lb.textContent = result.band.toFixed(1);
+  }
+
+  function renderReport(result, kind, p){
+    var rep = document.getElementById("report"); if(!rep) return;
+    var crit = criteriaFeedback(kind, result.checks, result.issues);
+    var issuesHtml = result.issues.length
+      ? '<ul class="issue-list">' + result.issues.map(function(is){
+          return '<li class="sev-'+is.sev+'"><b>'+esc(is.title)+'</b>'+(is.fix ? " — "+esc(is.fix) : "")+'</li>';
+        }).join("") + '</ul>'
+      : '<p style="font-size:13px;color:var(--good);margin:0">No grammar, spelling or vocabulary red flags detected — nice work!</p>';
+    rep.innerHTML =
+      '<div class="rep-band"><div class="rep-num">'+result.band.toFixed(1)+'</div>'
+        + '<div style="font-size:13px">Estimated band<br><small>heuristic guide — for a real score use the AI correction button above</small></div></div>'
+      + '<div class="crit-row">' + crit.map(function(c){
+          return '<div class="crit"><div class="ch"><span>'+c.name+'</span><span class="lvl '+c.level+'">'+(c.level==="good"?"Strong":c.level==="ok"?"OK":"Work on")+'</span></div><p>'+esc(c.text)+'</p></div>';
+        }).join("") + '</div>'
+      + '<div class="rep-head">Issues found ('+result.issues.length+')</div>'
+      + issuesHtml
+      + '<div class="rep-head">Want a full Band 8 rewrite?</div>'
+      + '<p style="font-size:12.5px;color:var(--ink-faint);margin:0">This tool checks structure and common errors offline. For a corrected Band 8 version of your exact text, press <b>“Copy text for AI Band 8 correction”</b> above and paste it into a Claude chat.</p>';
+    rep.hidden = false;
+  }
+
+  function buildAIPrompt(kind, p, text){
+    var task = kind === "t1" ? "IELTS General Training Writing Task 1 (a letter)" : "IELTS General Training Writing Task 2 (an essay)";
+    var q = p.body.join(" ") + (kind === "t1" ? " Bullet points to cover: " + p.bullets.join("; ") + "." : "");
+    return "You are an experienced IELTS examiner. Below is my " + task + ".\n\n"
+      + "PROMPT: " + q + "\n\n"
+      + "MY ANSWER:\n" + text.trim() + "\n\n"
+      + "Please:\n"
+      + "1) Give a band score (0-9) for each criterion — Task Achievement/Response, Coherence & Cohesion, Lexical Resource, Grammatical Range & Accuracy — plus an overall band.\n"
+      + "2) List my specific mistakes (grammar, vocabulary, spelling, register, cohesion) with corrections.\n"
+      + "3) Rewrite my answer as a Band 8+ model answer, keeping my ideas but improving accuracy, vocabulary and structure.\n"
+      + "4) Give me 3 concrete things to practise next.";
+  }
+
+  /* ---------- Online AI correction (Sonnet 5 via /api/evaluate) ---------- */
+  function getPassword(){
+    var pw = state.aiPassword || "";
+    if(!pw){
+      pw = window.prompt("Enter the access password for AI correction:") || "";
+      if(pw){ state.aiPassword = pw; save(); }
+    }
+    return pw;
+  }
+
+  function aiEvaluate(kind, p, text, btn){
+    var n = text.trim() ? text.trim().split(/\s+/).length : 0;
+    if(n < 25){ toast("Write a bit more first \u270D\uFE0F"); return; }
+    var rep = document.getElementById("report"); if(!rep) return;
+    var original = btn.textContent;
+    btn.disabled = true; btn.textContent = "\u23F3 Correcting with AI\u2026";
+    rep.hidden = false;
+    rep.innerHTML = '<div style="padding:22px;text-align:center;color:var(--ink-faint)">\u23F3 The AI examiner is reading your text\u2026 this usually takes 10\u201320 seconds.</div>';
+    var payload = {
+      kind: kind, title: p.title, prompt: p.body.join(" "),
+      bullets: kind === "t1" ? p.bullets : [],
+      tone: kind === "t1" ? p.tone : (p.type || ""),
+      text: text.trim()
+    };
+    fetch("/api/evaluate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-app-password": getPassword() },
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(r.status === 401){ state.aiPassword = ""; save(); throw new Error("Wrong password \u2014 reload and try again."); }
+      if(!r.ok) return r.text().then(function(t){ throw new Error("Server error (" + r.status + "). " + t.slice(0,200)); });
+      return r.json();
+    }).then(function(data){
+      if(data && data.error) throw new Error(data.error);
+      renderAIReport(data, kind, p);
+      saveAIResultToLog(kind, p, data);
+      if(!state.evaluated) state.evaluated = {};
+      addXP(20);
+    }).catch(function(err){
+      rep.innerHTML = '<div style="padding:16px;color:var(--bad)">\u26A0\uFE0F ' + esc(err.message || "Could not reach the AI service.") + '</div>';
+    }).finally(function(){
+      btn.disabled = false; btn.textContent = original;
+    });
+  }
+
+  function critLine(name, band){
+    var b = (band === null || band === undefined || isNaN(band)) ? null : Number(band);
+    var lvl = b === null ? "work" : b >= 7.5 ? "good" : b >= 6.5 ? "ok" : "work";
+    var txt = b === null ? "\u2014" : "Band " + b.toFixed(1);
+    return '<div class="crit"><div class="ch"><span>' + name + '</span><span class="lvl ' + lvl + '">' + txt + '</span></div></div>';
+  }
+
+  function renderAIReport(data, kind, p){
+    var rep = document.getElementById("report"); if(!rep) return;
+    var b = data.bands || {};
+    var mistakes = (data.mistakes || []).map(function(m){
+      return '<li class="sev-warn"><b>' + esc(m.category || "") + ':</b> '
+        + (m.original ? '\u201C' + esc(m.original) + '\u201D \u2192 ' : '')
+        + (m.correction ? '<b style="color:var(--good)">\u201C' + esc(m.correction) + '\u201D</b> ' : '')
+        + (m.explanation ? '\u2014 ' + esc(m.explanation) : '') + '</li>';
+    }).join("");
+    var practice = (data.practice || []).map(function(t){ return '<li class="sev-tip">' + esc(t) + '</li>'; }).join("");
+    rep.innerHTML =
+      '<div class="rep-band"><div class="rep-num">' + (b.overall != null ? Number(b.overall).toFixed(1) : "\u2013") + '</div>'
+        + '<div style="font-size:13px">AI examiner band<br><small>IELTS Advantage-style evaluation (Sonnet 5)</small></div></div>'
+      + '<div class="crit-row">'
+        + critLine("Task " + (kind === "t1" ? "Achievement" : "Response"), b.task)
+        + critLine("Coherence &amp; Cohesion", b.coherence)
+        + critLine("Lexical Resource", b.lexical)
+        + critLine("Grammatical Range", b.grammar)
+      + '</div>'
+      + '<div class="rep-head">Mistakes &amp; corrections</div>'
+      + (mistakes ? '<ul class="issue-list">' + mistakes + '</ul>' : '<p style="font-size:13px;color:var(--good);margin:0">No significant errors found \u2014 excellent!</p>')
+      + '<div class="rep-head">Band 8+ model rewrite</div>'
+      + '<div class="model-answer show" style="margin-top:0">' + esc(data.band8_rewrite || "").replace(/\n/g, "<br>") + '</div>'
+      + (practice ? '<div class="rep-head">Practise next</div><ul class="issue-list">' + practice + '</ul>' : '');
+    rep.hidden = false;
+  }
+
+  function saveAIResultToLog(kind, p, data){
+    var tips = (data.mistakes || []).map(function(m){
+      return { cat: m.category || "AI", text: (m.original ? '\u201C' + m.original + '\u201D \u2192 ' : '') + (m.correction || '') + (m.explanation ? ' \u2014 ' + m.explanation : '') };
+    });
+    if(!state.log) state.log = [];
+    var band = (data.bands && data.bands.overall) || 0;
+    state.log.unshift({ id: Date.now(), ts: new Date().toISOString(), task: kind, title: p.title, band: band, tips: tips });
+    if(state.log.length > 120) state.log.length = 120;
+    save();
+  }
+
+  function copyText(str, btn){
+    var original = btn.textContent;
+    function done(){ btn.textContent = "Copied! ✓ Paste into Claude"; setTimeout(function(){ btn.textContent = original; }, 2600); }
+    function fallback(){
+      var ta = document.createElement("textarea"); ta.value = str;
+      ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.focus(); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){ toast("Couldn’t copy automatically — select and copy manually."); }
+      document.body.removeChild(ta);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(str).then(done, fallback);
+    else fallback();
+  }
+
+  function saveToLog(kind, p, result){
+    var tips = [];
+    result.checks.forEach(function(c){ if(c.status !== "pass" && c.advice) tips.push({ cat:c.cat, text:c.advice }); });
+    result.issues.forEach(function(is){ tips.push({ cat:is.cat, text:is.title + (is.fix ? " — " + is.fix : "") }); });
+    if(!state.log) state.log = [];
+    var sig = JSON.stringify(tips);
+    var top = state.log[0];
+    if(top && top.task === kind && top.title === p.title && JSON.stringify(top.tips) === sig){
+      top.band = result.band; top.ts = new Date().toISOString(); save(); return; // avoid duplicate entries for the same text
+    }
+    state.log.unshift({ id:Date.now(), ts:new Date().toISOString(), task:kind, title:p.title, band:result.band, tips:tips });
+    if(state.log.length > 120) state.log.length = 120;
+    save();
+  }
+
+  function bindWriting(kind, p, minWords, minutes){
+    var pad = document.getElementById("pad");
+    var wc = document.getElementById("wc");
+    var timerEl = document.getElementById("timer");
+    var timerBtn = document.getElementById("timerBtn");
+    var remaining = minutes*60, tick=null, running=false;
+
+    pad.addEventListener("input", function(){
+      var n = pad.value.trim() ? pad.value.trim().split(/\s+/).length : 0;
+      wc.innerHTML = "Words: <b>"+n+"</b> / "+minWords;
+      wc.classList.toggle("ok", n>=minWords);
+    });
+
+    function fmt(s){ return pad2(Math.floor(s/60))+":"+pad2(s%60); }
+    timerBtn.addEventListener("click", function(){
+      if(running){
+        clearInterval(tick); running=false; timerBtn.textContent="▶ Resume"; timerEl.classList.remove("run");
+      } else {
+        running=true; timerBtn.textContent="⏸ Pause"; timerEl.classList.add("run");
+        tick = setInterval(function(){
+          remaining--; timerEl.textContent = fmt(Math.max(0,remaining));
+          if(remaining<=0){ clearInterval(tick); running=false; timerEl.classList.remove("run"); timerEl.classList.add("over"); timerBtn.textContent="Time's up"; timerBtn.disabled=true; toast("⏱ Time's up! Review with the checklist."); }
+        }, 1000);
+      }
+    });
+
+    document.getElementById("nextPrompt").addEventListener("click", function(){ writeState[kind]++; writingView(kind); });
+    document.getElementById("prevPrompt").addEventListener("click", function(){ writeState[kind]=(writeState[kind]-1+ (kind==="t1"?task1.length:task2.length)) % (kind==="t1"?task1.length:task2.length); writingView(kind); });
+
+    var modelBtn = document.getElementById("modelBtn");
+    var modelAns = document.getElementById("modelAns");
+    modelBtn.addEventListener("click", function(){
+      var show = modelAns.classList.toggle("show");
+      modelBtn.textContent = show ? "Hide model answer" : "Show model answer";
+    });
+
+    // live auto-check as the user writes
+    var debounce = null;
+    pad.addEventListener("input", function(){
+      clearTimeout(debounce);
+      debounce = setTimeout(function(){
+        var n = pad.value.trim() ? pad.value.trim().split(/\s+/).filter(Boolean).length : 0;
+        if(n >= 20) applyAnalysis(analyzeWriting(kind, p, pad.value));
+      }, 850);
+    });
+
+    function evaluateAndSave(showReport){
+      var n = pad.value.trim() ? pad.value.trim().split(/\s+/).length : 0;
+      if(n < 25) return null;
+      var result = analyzeWriting(kind, p, pad.value);
+      applyAnalysis(result);
+      if(showReport) renderReport(result, kind, p);
+      saveToLog(kind, p, result);
+      var ab = document.getElementById("aiBtn"); if(ab) ab.hidden = false;
+      var ae = document.getElementById("aiEvalBtn"); if(ae) ae.hidden = false;
+      return result;
+    }
+
+    // auto-save errors when you finish writing (leave the text box)
+    pad.addEventListener("blur", function(){ evaluateAndSave(false); });
+
+    // full evaluation + report on demand
+    document.getElementById("evalBtn").addEventListener("click", function(){
+      var n = pad.value.trim() ? pad.value.trim().split(/\s+/).length : 0;
+      if(n < 25){ toast("Write a bit more first ✍️"); return; }
+      evaluateAndSave(true);
+      if(!state.evaluated) state.evaluated = {};
+      if(!state.evaluated[p.id]){
+        state.evaluated[p.id] = true;
+        state.written[kind] = (state.written[kind]||0) + 1;
+        save(); addXP(15);
+      } else {
+        save(); toast("Evaluated ✓ — errors saved to your log");
+      }
+      var rep = document.getElementById("report");
+      if(rep) rep.scrollIntoView({ behavior:"smooth", block:"nearest" });
+    });
+
+    // copy a ready-made prompt for a real Band 8 correction in Claude
+    document.getElementById("aiBtn").addEventListener("click", function(){
+      copyText(buildAIPrompt(kind, p, pad.value), this);
+    });
+    // send to the AI examiner (online, Sonnet 5)
+    document.getElementById("aiEvalBtn").addEventListener("click", function(){
+      aiEvaluate(kind, p, pad.value, this);
+    });
+  }
+
+  /* ---------- Quiz engine (register / essaytype / cohesion / collocation) ---------- */
+  function quizView(id){
+    var conf = GAMES[id];
+    var bank = conf.bank.slice();
+    shuffle(bank);
+    var picked = bank.slice(0, Math.min(8, bank.length));
+    // shuffle options within each question so the answer is never in a fixed slot
+    var qs = picked.map(function(q){
+      var pairs = q.opts.map(function(o, idx){ return { o:o, isCorrect: idx===q.correct }; });
+      shuffle(pairs);
+      var ci = 0;
+      for(var z=0; z<pairs.length; z++){ if(pairs[z].isCorrect) ci = z; }
+      return { stem:q.stem, quote:q.quote, opts: pairs.map(function(pp){ return pp.o; }), correct:ci, exp:q.exp };
+    });
+    var i = 0, correct = 0, answered = false;
+
+    function render(){
+      if(i >= qs.length){ return renderResult(); }
+      var q = qs[i];
+      var stem = q.stem + (q.quote ? '<span class="quote">“'+q.quote+'”</span>' : '');
+      main.innerHTML =
+        topbar(conf.title, conf.sub)
+        + '<div class="quiz-wrap fade-in">'
+          + '<div class="quiz-top">'
+            + '<div class="q-progress"><i style="width:'+(i/qs.length*100)+'%"></i></div>'
+            + '<div class="q-count">'+(i+1)+' / '+qs.length+' · <b style="color:var(--good)">'+correct+' ✓</b></div>'
+          + '</div>'
+          + '<div class="card q-card">'
+            + '<div class="q-tag">'+conf.title+'</div>'
+            + '<p class="q-stem">'+stem+'</p>'
+            + '<div class="opts" id="opts">'
+              + q.opts.map(function(o,k){
+                  return '<button class="opt" data-k="'+k+'"><span class="kbd">'+String.fromCharCode(65+k)+'</span><span>'+o+'</span></button>';
+                }).join('')
+            + '</div>'
+            + '<div class="explain" id="explain"></div>'
+            + '<div class="quiz-foot"><div class="verdict" id="verdict"></div><button class="btn primary hidden" id="nextQ">Next ▶</button></div>'
+          + '</div>'
+        + '</div>';
+      refreshChips();
+
+      answered = false;
+      var opts = main.querySelectorAll(".opt");
+      opts.forEach(function(btn){
+        btn.addEventListener("click", function(){ pick(+btn.getAttribute("data-k"), q, opts); });
+      });
+      document.getElementById("nextQ").addEventListener("click", function(){ i++; render(); });
+    }
+
+    function pick(k, q, opts){
+      if(answered) return;
+      answered = true;
+      var ok = k === q.correct;
+      if(ok) correct++;
+      opts.forEach(function(b){
+        var bk = +b.getAttribute("data-k");
+        b.disabled = true;
+        if(bk === q.correct) b.classList.add("correct");
+        else if(bk === k) b.classList.add("wrong");
+      });
+      var vd = document.getElementById("verdict");
+      vd.className = "verdict " + (ok?"ok":"no");
+      vd.innerHTML = ok ? "✓ Correct!" : "✕ Not quite — see the explanation";
+      var ex = document.getElementById("explain");
+      ex.innerHTML = q.exp;
+      ex.classList.add("show");
+      document.getElementById("nextQ").classList.remove("hidden");
+      if(ok) toast("Nice!", 2);
+    }
+
+    function renderResult(){
+      var pct = Math.round(correct/qs.length*100);
+      var stars = pct>=90?5 : pct>=75?4 : pct>=50?3 : pct>=30?2 : 1;
+      var earned = correct * conf.xp;
+      // record best
+      var rec = state.games[id] || { best:0, plays:0 };
+      rec.plays++; rec.best = Math.max(rec.best||0, stars);
+      state.games[id] = rec;
+      save();
+      addXP(earned);
+
+      var circ = 2*Math.PI*54;
+      main.innerHTML =
+        topbar(conf.title, conf.sub)
+        + '<div class="quiz-wrap fade-in"><div class="card result">'
+          + '<div class="score-ring">'
+            + '<svg width="128" height="128" viewBox="0 0 128 128">'
+              + '<circle cx="64" cy="64" r="54" fill="none" stroke="var(--line)" stroke-width="11"/>'
+              + '<circle cx="64" cy="64" r="54" fill="none" stroke="var(--accent)" stroke-width="11" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+(circ*(1-pct/100))+'" transform="rotate(-90 64 64)"/>'
+            + '</svg>'
+            + '<b>'+pct+'%</b>'
+          + '</div>'
+          + '<h3>'+correct+' of '+qs.length+' correct</h3>'
+          + '<p>'+"★".repeat(stars)+"☆".repeat(5-stars)+' · +'+earned+' XP earned</p>'
+          + '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+            + '<button class="btn primary" id="again">Play again</button>'
+            + '<button class="btn" id="toHome">Back to dashboard</button>'
+          + '</div>'
+        + '</div></div>';
+      refreshChips();
+      document.getElementById("again").addEventListener("click", function(){ quizView(id); });
+      document.getElementById("toHome").addEventListener("click", function(){ go("home"); });
+    }
+
+    render();
+  }
+
+  /* ---------- Paraphrase Workshop ---------- */
+  function paraphraseView(){
+    var bank = paraphraseBank.slice(); shuffle(bank);
+    var qs = bank.slice(0, 6);
+    var i = 0, done = 0;
+
+    function render(){
+      if(i >= qs.length){
+        var rec = state.games.paraphrase || {best:0,plays:0};
+        rec.plays++; rec.best = Math.max(rec.best||0, 5);
+        state.games.paraphrase = rec; save();
+        main.innerHTML = topbar("Paraphrase Workshop","Turn basic English into high-band English.")
+          + '<div class="quiz-wrap fade-in"><div class="card result">'
+          + '<div style="font-size:44px;margin-bottom:8px">✍️</div>'
+          + '<h3>'+done+' sentences reforged!</h3>'
+          + '<p>Always compare your version with the model. Flexible paraphrasing is pure gold for Lexical Resource.</p>'
+          + '<div style="display:flex;gap:10px;justify-content:center"><button class="btn primary" id="again">Another round</button><button class="btn" id="toHome">Dashboard</button></div>'
+          + '</div></div>';
+        document.getElementById("again").addEventListener("click", paraphraseView);
+        document.getElementById("toHome").addEventListener("click", function(){ go("home"); });
+        refreshChips();
+        return;
+      }
+      var q = qs[i];
+      main.innerHTML =
+        topbar("Paraphrase Workshop","Rewrite each sentence with Band 8 vocabulary and structures.")
+        + '<div class="quiz-wrap fade-in">'
+          + '<div class="quiz-top"><div class="q-progress"><i style="width:'+(i/qs.length*100)+'%"></i></div><div class="q-count">'+(i+1)+' / '+qs.length+'</div></div>'
+          + '<div class="card q-card">'
+            + '<div class="q-tag">Basic sentence</div>'
+            + '<p class="q-stem" style="font-size:19px">"'+esc(q.basic)+'"</p>'
+            + '<textarea class="pad" id="ppad" style="min-height:110px;font-size:15px" placeholder="Write your improved version here..."></textarea>'
+            + '<div class="quiz-foot"><button class="btn" id="revealBtn">Reveal model &amp; tips</button><button class="btn primary hidden" id="nextP">Next ▶</button></div>'
+            + '<div class="explain" id="pexp"></div>'
+          + '</div>'
+        + '</div>';
+      refreshChips();
+
+      document.getElementById("revealBtn").addEventListener("click", function(){
+        var pad = document.getElementById("ppad");
+        var wrote = pad.value.trim().length > 8;
+        var ex = document.getElementById("pexp");
+        ex.innerHTML = '<b>Model version:</b><br><span style="font-family:var(--serif);font-size:15px">"'+esc(q.model)+'"</span>'
+          + '<div style="margin-top:12px"><b>Techniques:</b><ul style="margin:6px 0 0;padding-left:18px">'
+          + q.tips.map(function(t){ return '<li style="margin-bottom:4px">'+t+'</li>'; }).join('') + '</ul></div>';
+        ex.classList.add("show");
+        this.classList.add("hidden");
+        document.getElementById("nextP").classList.remove("hidden");
+        if(wrote){ done++; addXP(6); } else { toast("Try writing your version before revealing 😉"); }
+      });
+      document.getElementById("nextP").addEventListener("click", function(){ i++; render(); });
+    }
+    render();
+  }
+
+  /* ---------- Reference ---------- */
+  views.reference = function(){
+    main.innerHTML =
+      topbar("Band 8 Guide", "Everything an examiner looks for — and the phrases that raise your band.")
+      + '<div style="max-width:760px">'
+      + acc("The 4 marking criteria (25% each)",
+          '<p><strong>1. Task Achievement (T1) / Task Response (T2):</strong> do you fully answer what is asked? In T1, cover all 3 bullets with the correct tone. In T2, take a clear, sustained position with well-developed ideas.</p>'
+        + '<p><strong>2. Coherence &amp; Cohesion:</strong> logical organisation, one topic per paragraph, natural referencing and connectors (without overusing "Firstly, Secondly").</p>'
+        + '<p><strong>3. Lexical Resource:</strong> precise vocabulary, natural collocations, paraphrasing. Few word-choice errors.</p>'
+        + '<p><strong>4. Grammatical Range &amp; Accuracy:</strong> a variety of structures (conditionals, relative clauses, passives) used with <strong>accuracy</strong>. Most of your sentences should be error-free.</p>')
+      + acc("Task 1 — openings and closings by register",
+          '<div class="phrase-grid">'
+          + phrase("Formal (no name)","<code>Dear Sir or Madam,</code> … <code>Yours faithfully,</code>")
+          + phrase("Formal (with name)","<code>Dear Mr Lee,</code> … <code>Yours sincerely,</code>")
+          + phrase("Informal","<code>Hi Sam,</code> … <code>Take care, / Speak soon,</code>")
+          + phrase("Formal purpose","<code>I am writing to enquire about…</code>")
+          + phrase("Complaint","<code>I am writing to express my dissatisfaction with…</code>")
+          + phrase("Polite request","<code>I would be grateful if you could…</code>")
+          + phrase("Informal purpose","<code>I just wanted to let you know…</code>")
+          + phrase("Formal closing","<code>I look forward to your prompt reply.</code>")
+          + '</div>')
+      + acc("Task 2 — the 5 question types",
+          '<p><strong>Opinion (Agree/Disagree):</strong> clear stance from the intro; defend it throughout.</p>'
+        + '<p><strong>Discussion (both views + opinion):</strong> one paragraph per view + your opinion.</p>'
+        + '<p><strong>Advantages &amp; Disadvantages:</strong> weigh both sides; if it asks "outweigh", decide which is stronger.</p>'
+        + '<p><strong>Problem &amp; Solution (Causes/Solutions):</strong> a causes paragraph + a concrete solutions paragraph.</p>'
+        + '<p><strong>Two-part Question:</strong> answer <strong>both</strong> questions explicitly.</p>')
+      + acc("Connectors by function (natural cohesion)",
+          '<div class="phrase-grid">'
+          + phrase("Add","<code>Moreover · Furthermore · In addition · What is more</code>")
+          + phrase("Contrast","<code>However · On the other hand · Nevertheless · Nonetheless</code>")
+          + phrase("Concession","<code>Although · Despite / In spite of + noun</code>")
+          + phrase("Cause/Effect","<code>As a result · Consequently · Therefore · owing to</code>")
+          + phrase("Exemplify","<code>For instance · A prime example is</code>")
+          + phrase("Conclude","<code>In conclusion · To sum up · On balance</code>")
+          + '</div>')
+      + acc("High-value template phrases (T2)",
+          '<div class="phrase-grid">'
+          + phrase("Intro (paraphrase)","<code>It is often argued that…</code>")
+          + phrase("Thesis","<code>This essay will argue that…</code>")
+          + phrase("Opinion","<code>I am firmly of the view that…</code>")
+          + phrase("Concession","<code>While it is true that…, …</code>")
+          + phrase("Example","<code>A case in point is…</code>")
+          + phrase("Balance","<code>On balance, the benefits outweigh…</code>")
+          + '</div>')
+      + acc("Mistakes that keep you stuck at Band 6.5",
+          '<p>• Memorising phrases and forcing them in (examiners spot it).</p>'
+        + '<p>• Not answering <strong>every</strong> part of the question.</p>'
+        + '<p>• Mixing formal and informal register in Task 1.</p>'
+        + '<p>• Overloading linking words ("Firstly… Secondly… Moreover… Furthermore…" in every sentence).</p>'
+        + '<p>• Long, complex sentences <em>with errors</em>: 3 correct sentences beat one brilliant broken one.</p>'
+        + '<p>• Not leaving 3-4 minutes to check spelling, articles and agreement.</p>')
+      + '</div>';
+    refreshChips();
+  };
+  function acc(title, body){
+    return '<details class="acc"><summary>'+title+'<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></summary><div class="acc-body">'+body+'</div></details>';
+  }
+  function phrase(k, v){ return '<div class="phrase"><div style="font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin-bottom:4px">'+k+'</div>'+v+'</div>'; }
+
+  /* ---------- Mistakes & Tips log ---------- */
+  views.log = function(){
+    var log = state.log || [];
+    var html = topbar("Mistakes & Tips", "Every tip you’ve been given — saved so you can track and beat your recurring mistakes.");
+    if(!log.length){
+      html += '<div class="card empty"><div class="big">📓</div>'
+        + '<b style="color:var(--ink);font-size:16px">No tips saved yet</b>'
+        + '<p style="margin-top:6px">Write a letter or essay and press <b>“Finish &amp; evaluate”</b>. Every piece of advice will be collected here so you can see what to improve.</p></div>';
+      main.innerHTML = html; refreshChips(); return;
+    }
+    var freq = {};
+    log.forEach(function(e){ e.tips.forEach(function(t){ freq[t.cat] = (freq[t.cat]||0)+1; }); });
+    var freqArr = Object.keys(freq).map(function(k){ return [k, freq[k]]; }).sort(function(a,b){ return b[1]-a[1]; });
+    var totalTips = freqArr.reduce(function(s,x){ return s+x[1]; }, 0);
+
+    html += '<div class="card" style="padding:16px 18px;margin-bottom:18px">'
+      + '<div style="font-family:var(--serif);font-size:15px;margin-bottom:4px">Your most frequent weak spots</div>'
+      + '<p style="font-size:12.5px;color:var(--ink-faint);margin:0 0 12px">'+totalTips+' tips across '+log.length+' evaluation'+(log.length>1?"s":"")+'. Attack the ones with the highest counts first.</p>'
+      + '<div class="log-freq">' + freqArr.map(function(x){ return '<span class="freq-chip">'+esc(x[0])+' <b>'+x[1]+'</b></span>'; }).join("") + '</div></div>';
+
+    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+      + '<div class="section-title" style="margin:0;flex:1">History <span class="rule"></span></div>'
+      + '<button class="btn ghost" id="clearLog">Clear log</button></div>';
+
+    html += log.map(function(e){
+      var d = new Date(e.ts);
+      var date = d.toLocaleDateString(undefined,{ day:"2-digit", month:"short" }) + " · " + d.toLocaleTimeString(undefined,{ hour:"2-digit", minute:"2-digit" });
+      var pillCls = e.task === "t1" ? "t1" : "t2";
+      return '<div class="card log-entry"><div class="le-head">'
+        + '<span class="pill '+pillCls+'">'+(e.task === "t1" ? "Task 1" : "Task 2")+'</span>'
+        + '<b style="font-family:var(--serif);font-size:14px">'+esc(e.title)+'</b>'
+        + '<span class="pill" style="background:var(--accent-soft);color:var(--accent-ink)">Band ~'+e.band.toFixed(1)+'</span>'
+        + '<span class="le-date" style="margin-left:auto">'+date+'</span></div>'
+        + (e.tips.length
+            ? '<ul>' + e.tips.map(function(t){ return '<li><b style="color:var(--ink-soft)">'+esc(t.cat)+':</b> '+esc(t.text)+'</li>'; }).join("") + '</ul>'
+            : '<p style="font-size:13px;color:var(--good);margin:0">No issues — clean pass! ✓</p>')
+        + '</div>';
+    }).join("");
+
+    main.innerHTML = html; refreshChips();
+    var cl = document.getElementById("clearLog");
+    if(cl) cl.addEventListener("click", function(){
+      if(window.confirm("Clear all saved tips? This cannot be undone.")){ state.log = []; save(); go("log"); }
+    });
+  };
+
+  /* wire view dispatch */
+  views.task1 = function(){ writingView("t1"); };
+  views.task2 = function(){ writingView("t2"); };
+  views.register = function(){ quizView("register"); };
+  views.essaytype = function(){ quizView("essaytype"); };
+  views.cohesion = function(){ quizView("cohesion"); };
+  views.collocation = function(){ quizView("collocation"); };
+  views.paraphrase = paraphraseView;
+
+  /* ============================ NAV ============================ */
+  var NAV = [
+    ["home","Dashboard"],["task1","Task 1"],["task2","Task 2"],
+    ["register","Register"],["essaytype","Essay"],["cohesion","Cohesion"],
+    ["collocation","Collocations"],["paraphrase","Paraphrase"],["reference","Guide"],["log","Tips"]
+  ];
+  function buildMobileTabs(){
+    var m = document.getElementById("mtabs");
+    m.innerHTML = NAV.map(function(n){ return '<button class="mtab" data-view="'+n[0]+'">'+n[1]+'</button>'; }).join('');
+    m.querySelectorAll(".mtab").forEach(function(b){ b.addEventListener("click", function(){ go(b.getAttribute("data-view")); }); });
+  }
+  function setActive(view){
+    document.querySelectorAll(".nav-btn").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-view")===view); });
+    document.querySelectorAll(".mtab").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-view")===view); });
+  }
+  function go(view){
+    if(!views[view]) view = "home";
+    setActive(view);
+    window.scrollTo(0,0);
+    views[view]();
+  }
+  function bindGo(){
+    main.querySelectorAll("[data-go]").forEach(function(el){
+      el.addEventListener("click", function(){ go(el.getAttribute("data-go")); });
+    });
+  }
+  document.querySelectorAll(".nav-btn").forEach(function(b){
+    b.addEventListener("click", function(){ go(b.getAttribute("data-view")); });
+  });
+
+  /* ============================ THEME ============================ */
+  function applyTheme(t){
+    if(t){ document.documentElement.setAttribute("data-theme", t); }
+    else { document.documentElement.removeAttribute("data-theme"); }
+    state.theme = t; save();
+  }
+  function currentTheme(){
+    var t = document.documentElement.getAttribute("data-theme");
+    if(t) return t;
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  document.getElementById("themeBtn").addEventListener("click", function(){
+    applyTheme(currentTheme()==="dark" ? "light" : "dark");
+  });
+  if(state.theme) applyTheme(state.theme);
+
+  /* ============================ UTIL ============================ */
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+  /* ============================ BOOT ============================ */
+  buildMobileTabs();
+  go("home");
+})();
+</script>
