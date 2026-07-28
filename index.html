@@ -320,6 +320,17 @@
   .empty { text-align: center; padding: 50px 24px; color: var(--ink-faint); }
   .empty .big { font-size: 42px; margin-bottom: 12px; }
 
+  /* saved submissions */
+  mark.err { background: var(--bad-soft); color: var(--bad); border-radius: 4px; padding: 0 2px; text-decoration: underline wavy var(--bad); text-decoration-thickness: 1px; cursor: help; font-style: normal; }
+  .sub-card { padding: 18px 20px; margin-bottom: 14px; }
+  .sub-card .sc-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+  .sub-card .sc-date { font-size: 12px; color: var(--ink-faint); font-family: var(--mono); margin-left: auto; }
+  .sub-cols { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 860px) { .sub-cols { grid-template-columns: 1fr 1fr; } }
+  .sub-block h6 { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); margin: 0 0 6px; }
+  .sub-text { font-family: var(--serif); font-size: 14px; line-height: 1.75; padding: 14px; border-radius: 11px; border: 1px solid var(--line); background: var(--card-2); }
+  .sub-text.model { border-color: color-mix(in srgb, var(--good) 32%, var(--line)); background: var(--good-soft); }
+
   .model-toggle { margin-top: 14px; }
   .model-answer { margin-top: 12px; padding: 16px; border-radius: 11px; background: var(--card-2); border: 1px solid var(--line); font-family: var(--serif); font-size: 14px; line-height: 1.65; display: none; }
   .model-answer.show { display: block; }
@@ -431,6 +442,11 @@
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="20" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
         Mistakes &amp; Tips
         <span class="nav-badge" id="nb-log">0</span>
+      </button>
+      <button class="nav-btn" data-view="submissions">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+        My Submissions
+        <span class="nav-badge" id="nb-subs">0</span>
       </button>
 
       <div class="side-foot">
@@ -657,6 +673,7 @@
       setBadge("nb-"+g, rec && rec.best!=null ? (rec.best+"★") : "—");
     });
     setBadge("nb-log", (state.log && state.log.length) || 0);
+    setBadge("nb-subs", (state.submissions && state.submissions.length) || 0);
   }
   function setBadge(id, val){ var e=document.getElementById(id); if(e) e.textContent = val; }
 
@@ -1065,6 +1082,7 @@
       if(data && data.error) throw new Error(data.error);
       renderAIReport(data, kind, p);
       saveAIResultToLog(kind, p, data);
+      saveSubmission(kind, p, text, data);
       if(!state.evaluated) state.evaluated = {};
       addXP(20);
     }).catch(function(err){
@@ -1116,6 +1134,34 @@
     var band = (data.bands && data.bands.overall) || 0;
     state.log.unshift({ id: Date.now(), ts: new Date().toISOString(), task: kind, title: p.title, band: band, tips: tips });
     if(state.log.length > 120) state.log.length = 120;
+    save();
+  }
+
+  function highlightErrors(text, mistakes){
+    var html = esc(text || "");
+    (mistakes || []).forEach(function(m){
+      if(!m.original) return;
+      var orig = esc(m.original);
+      if(html.indexOf(orig) === -1) return;
+      var tipRaw = (m.correction ? "\u2192 " + m.correction : "") + (m.explanation ? "  (" + m.explanation + ")" : "");
+      var tip = esc(tipRaw.replace(/^\s+|\s+$/g, ""));
+      var mark = '<mark class="err" title="' + tip + '">' + orig + '</mark>';
+      html = html.replace(orig, function(){ return mark; });
+    });
+    return html.replace(/\n/g, "<br>");
+  }
+
+  function saveSubmission(kind, p, text, data){
+    if(!state.submissions) state.submissions = [];
+    state.submissions.unshift({
+      id: Date.now(), ts: new Date().toISOString(),
+      task: kind, title: p.title,
+      bands: data.bands || {},
+      original: text,
+      mistakes: data.mistakes || [],
+      rewrite: data.band8_rewrite || ""
+    });
+    if(state.submissions.length > 60) state.submissions.length = 60;
     save();
   }
 
@@ -1503,6 +1549,41 @@
     });
   };
 
+  /* ---------- Saved submissions (text + highlighted errors + Band 8 rewrite) ---------- */
+  views.submissions = function(){
+    var subs = state.submissions || [];
+    var html = topbar("My Submissions", "Your writing, saved with errors highlighted and the Band 8 rewrite side by side.");
+    if(!subs.length){
+      html += '<div class="card empty"><div class="big">\uD83D\uDCC4</div>'
+        + '<b style="color:var(--ink);font-size:16px">No saved writing yet</b>'
+        + '<p style="margin-top:6px">Write a Task 1 or Task 2 answer and press <b>\uD83E\uDD16 Correct with AI</b>. Your text (with mistakes highlighted) and the Band 8 rewrite are saved here automatically.</p></div>';
+      main.innerHTML = html; refreshChips(); return;
+    }
+    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+      + '<div class="section-title" style="margin:0;flex:1">Saved writing <span class="rule"></span></div>'
+      + '<button class="btn ghost" id="clearSubs">Clear all</button></div>';
+    html += subs.map(function(e){
+      var d = new Date(e.ts);
+      var date = d.toLocaleDateString(undefined,{ day:"2-digit", month:"short" }) + " \u00B7 " + d.toLocaleTimeString(undefined,{ hour:"2-digit", minute:"2-digit" });
+      var pillCls = e.task === "t1" ? "t1" : "t2";
+      var overall = (e.bands && e.bands.overall != null) ? Number(e.bands.overall).toFixed(1) : "\u2013";
+      return '<div class="card sub-card"><div class="sc-head">'
+        + '<span class="pill ' + pillCls + '">' + (e.task === "t1" ? "Task 1" : "Task 2") + '</span>'
+        + '<b style="font-family:var(--serif);font-size:14px">' + esc(e.title) + '</b>'
+        + '<span class="pill" style="background:var(--accent-soft);color:var(--accent-ink)">Band ~' + overall + '</span>'
+        + '<span class="sc-date">' + date + '</span></div>'
+        + '<div class="sub-cols">'
+          + '<div class="sub-block"><h6>Your writing \u2014 hover a highlight for the fix</h6><div class="sub-text">' + highlightErrors(e.original, e.mistakes) + '</div></div>'
+          + '<div class="sub-block"><h6>Band 8+ rewrite</h6><div class="sub-text model">' + esc(e.rewrite || "").replace(/\n/g, "<br>") + '</div></div>'
+        + '</div></div>';
+    }).join("");
+    main.innerHTML = html; refreshChips();
+    var cs = document.getElementById("clearSubs");
+    if(cs) cs.addEventListener("click", function(){
+      if(window.confirm("Delete all saved submissions? This cannot be undone.")){ state.submissions = []; save(); go("submissions"); }
+    });
+  };
+
   /* wire view dispatch */
   views.task1 = function(){ writingView("t1"); };
   views.task2 = function(){ writingView("t2"); };
@@ -1516,7 +1597,7 @@
   var NAV = [
     ["home","Dashboard"],["task1","Task 1"],["task2","Task 2"],
     ["register","Register"],["essaytype","Essay"],["cohesion","Cohesion"],
-    ["collocation","Collocations"],["paraphrase","Paraphrase"],["reference","Guide"],["log","Tips"]
+    ["collocation","Collocations"],["paraphrase","Paraphrase"],["reference","Guide"],["log","Tips"],["submissions","Writing"]
   ];
   function buildMobileTabs(){
     var m = document.getElementById("mtabs");
