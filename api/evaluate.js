@@ -49,7 +49,7 @@ The overall band is the average of the four, rounded to the nearest 0.5.
 
 Then:
 1) List the student's concrete mistakes. For each, give: a category (Grammar, Vocabulary, Spelling, Cohesion, Register, or Task), the exact original wording, the corrected wording, and a short plain-English explanation. Focus on the errors that most hold the score back. Do not invent errors that are not in the text.
-2) Provide a Band 8+ model rewrite that keeps the student's own ideas but fixes accuracy, vocabulary, structure and register. Keep it a realistic length for the task (Task 1: ~180 words; Task 2: ~280 words).
+2) Provide a Band 8+ model rewrite that keeps the student's own ideas and message, but fixes accuracy, vocabulary, structure and register. LENGTH IS CRITICAL — write only as much as a strong candidate would under real exam time, and never pad, repeat, or over-explain. Task 1 (a letter): 160-190 words, and NEVER exceed 200. Task 2 (an essay): 250-290 words, and NEVER exceed 300. Count your words and stay within range: be concise, cut redundancy, and make every sentence earn its place. An over-long rewrite is a failure even if it is well written.
 3) Give exactly 3 concrete, specific things to practise next.
 
 Be direct, practical and encouraging, in the IELTS Advantage style. Emphasise answering the question fully and clear structure. Return ONLY data matching the required JSON schema — no extra commentary.`;
@@ -82,6 +82,10 @@ export default async function handler(req, res) {
       ? "IELTS General Training Writing Task 1 (a letter)"
       : "IELTS General Training Writing Task 2 (an essay)";
 
+    const lengthRule = kind === "t1"
+      ? "The Band 8 rewrite MUST be 160-190 words and must NEVER exceed 200 words. Do not pad it."
+      : "The Band 8 rewrite MUST be 250-290 words and must NEVER exceed 300 words. Do not pad it.";
+
     const promptBlock = String(prompt || "") +
       (kind === "t1" && Array.isArray(bullets) && bullets.length
         ? "\nBullet points to cover:\n- " + bullets.join("\n- ")
@@ -91,6 +95,7 @@ export default async function handler(req, res) {
       "TASK: " + taskLabel + "\n" +
       (tone ? "REGISTER / TYPE: " + tone + "\n" : "") +
       "\nPROMPT:\n" + promptBlock +
+      "\n\nLENGTH REQUIREMENT FOR THE REWRITE: " + lengthRule +
       "\n\nSTUDENT ANSWER:\n" + String(text).trim();
 
     const response = await client.messages.create({
