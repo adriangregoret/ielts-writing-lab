@@ -345,6 +345,13 @@
   .lx-qp { line-height: 1.5; }
   .lx-a { margin-top: 6px; padding: 8px 10px; border-radius: 8px; background: var(--good-soft); color: var(--ink); font-size: 13px; font-family: var(--serif); line-height: 1.5; }
 
+  /* practice type selector */
+  .type-row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 12px; }
+  .type-lbl { font-size: 12px; color: var(--ink-faint); font-weight: 600; margin-right: 2px; }
+  .type-chip { font: inherit; font-size: 12.5px; padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); background: var(--card); color: var(--ink-soft); cursor: pointer; transition: border-color .12s, background .12s; }
+  .type-chip:hover { border-color: var(--accent); }
+  .type-chip.on { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+
   .model-toggle { margin-top: 14px; }
   .model-answer { margin-top: 12px; padding: 16px; border-radius: 11px; background: var(--card-2); border: 1px solid var(--line); font-family: var(--serif); font-size: 14px; line-height: 1.65; display: none; }
   .model-answer.show { display: block; }
@@ -782,12 +789,74 @@
   }
 
   /* ---------- Writing views (Task 1 / Task 2) ---------- */
-  var writeState = { t1:0, t2:0 };
+  var writeState = { t1:0, t2:0, current:{} };
+
+  var T1_TYPES = [
+    { id:"complaint", label:"Complaint" },
+    { id:"request", label:"Request / Enquiry" },
+    { id:"application", label:"Job / Application" },
+    { id:"apology", label:"Apology / Explanation" },
+    { id:"invitation", label:"Invitation / Social" },
+    { id:"thanks", label:"Thank-you" }
+  ];
+  var T2_TYPES = [
+    { id:"opinion", label:"Opinion (Agree/Disagree)" },
+    { id:"discussion", label:"Discussion (both views)" },
+    { id:"advdis", label:"Advantages / Disadvantages" },
+    { id:"problem", label:"Problem & Solution" },
+    { id:"twopart", label:"Two-part Question" }
+  ];
+
+  function makePrompt(kind, data){
+    return {
+      id: "gen-" + Date.now(),
+      title: data.title || (kind === "t1" ? "Letter" : "Essay"),
+      body: [ String(data.body || "") ],
+      tone: data.tone || "",
+      type: data.essayType || "",
+      bullets: kind === "t1" ? (data.bullets || []) : [],
+      note: data.note || "",
+      model: null
+    };
+  }
+
+  function generatePrompt(kind, typeId){
+    var list = kind === "t1" ? T1_TYPES : T2_TYPES;
+    var typeLabel = "";
+    if(typeId === "mixed"){ var r = list[Math.floor(Math.random() * list.length)]; typeLabel = r.label; }
+    else { var m = list.filter(function(x){ return x.id === typeId; })[0]; typeLabel = m ? m.label : ""; }
+    var nb = document.getElementById("nextPrompt");
+    if(nb){ nb.disabled = true; nb.textContent = "\u23F3 Generating\u2026"; }
+    fetch("/api/prompt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-app-password": getPassword() },
+      body: JSON.stringify({ kind: kind, type: typeLabel })
+    }).then(function(r){
+      if(r.status === 401){ state.aiPassword = ""; save(); throw new Error("Wrong password \u2014 reload and try again."); }
+      if(!r.ok) return r.text().then(function(t){ throw new Error("Server error (" + r.status + ")."); });
+      return r.json();
+    }).then(function(data){
+      if(data && data.error) throw new Error(data.error);
+      if(!writeState.current) writeState.current = {};
+      writeState.current[kind] = makePrompt(kind, data);
+      writingView(kind);
+    }).catch(function(err){
+      if(nb){ nb.disabled = false; nb.textContent = "\u2728 New prompt"; }
+      toast("Couldn't generate: " + (err.message || "error"));
+    });
+  }
 
   function writingView(kind){
     var bank = kind==="t1" ? task1 : task2;
-    var idx = writeState[kind] % bank.length;
-    var p = bank[idx];
+    if(!writeState.current) writeState.current = {};
+    if(!writeState.current[kind]){ writeState.current[kind] = bank[writeState[kind] % bank.length]; }
+    var p = writeState.current[kind];
+    var TYPES = kind==="t1" ? T1_TYPES : T2_TYPES;
+    var selType = kind==="t1" ? (state.t1Type || "mixed") : (state.t2Type || "mixed");
+    var typeChipsHtml = '<div class="type-row"><span class="type-lbl">Practise a type:</span>'
+      + '<button class="type-chip' + (selType==="mixed"?" on":"") + '" data-type="mixed">\uD83C\uDFB2 Mixed</button>'
+      + TYPES.map(function(x){ return '<button class="type-chip' + (selType===x.id?" on":"") + '" data-type="' + x.id + '">' + esc(x.label) + '</button>'; }).join("")
+      + '</div>';
     var isT1 = kind==="t1";
     var minWords = isT1 ? 150 : 250;
     var minutes = isT1 ? 20 : 40;
@@ -805,9 +874,9 @@
 
     main.innerHTML =
       topbar(isT1 ? "Task 1 · Letters" : "Task 2 · Essays", isT1 ? "Write a letter of at least 150 words in 20 minutes." : "Write an essay of at least 250 words in 40 minutes.")
+      + typeChipsHtml
       + '<div class="pad-tools">'
-        + '<button class="btn ghost" id="prevPrompt">◀ Previous</button>'
-        + '<button class="btn ghost" id="nextPrompt">New prompt ▶</button>'
+        + '<button class="btn ghost" id="nextPrompt">✨ New prompt</button>'
         + '<div class="timer" id="timer">'+pad2(minutes)+':00</div>'
         + '<button class="btn" id="timerBtn">▶ Start</button>'
       + '</div>'
@@ -823,10 +892,10 @@
           + '</div>'
           + '<div style="display:flex;align-items:center;margin:12px 2px 6px">'
             + '<div class="wc" id="wc" style="margin-left:0">Words: <b>0</b> / '+minWords+'</div>'
-            + '<button class="btn ghost model-toggle" id="modelBtn" style="margin-left:auto">Show model answer</button>'
+            + (p.model ? '<button class="btn ghost model-toggle" id="modelBtn" style="margin-left:auto">Show model answer</button>' : '')
           + '</div>'
           + '<textarea class="pad" id="pad" placeholder="'+(isT1?'Dear...':'Write your introduction here...')+'" spellcheck="true"></textarea>'
-          + '<div class="model-answer" id="modelAns"><h5>Model answer (Band 8+)</h5>'+esc(p.model).replace(/\n/g,'<br>')+'</div>'
+          + (p.model ? '<div class="model-answer" id="modelAns"><h5>Model answer (Band 8+)</h5>'+esc(p.model).replace(/\n/g,'<br>')+'</div>' : '')
         + '</div>'
         + '<div class="card checklist">'
           + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">'
@@ -1317,15 +1386,26 @@
       }
     });
 
-    document.getElementById("nextPrompt").addEventListener("click", function(){ writeState[kind]++; writingView(kind); });
-    document.getElementById("prevPrompt").addEventListener("click", function(){ writeState[kind]=(writeState[kind]-1+ (kind==="t1"?task1.length:task2.length)) % (kind==="t1"?task1.length:task2.length); writingView(kind); });
+    document.getElementById("nextPrompt").addEventListener("click", function(){
+      generatePrompt(kind, kind==="t1" ? (state.t1Type || "mixed") : (state.t2Type || "mixed"));
+    });
+    main.querySelectorAll(".type-chip").forEach(function(c){
+      c.addEventListener("click", function(){
+        var tid = c.getAttribute("data-type");
+        if(kind==="t1") state.t1Type = tid; else state.t2Type = tid;
+        save();
+        generatePrompt(kind, tid);
+      });
+    });
 
     var modelBtn = document.getElementById("modelBtn");
     var modelAns = document.getElementById("modelAns");
-    modelBtn.addEventListener("click", function(){
-      var show = modelAns.classList.toggle("show");
-      modelBtn.textContent = show ? "Hide model answer" : "Show model answer";
-    });
+    if(modelBtn && modelAns){
+      modelBtn.addEventListener("click", function(){
+        var show = modelAns.classList.toggle("show");
+        modelBtn.textContent = show ? "Hide model answer" : "Show model answer";
+      });
+    }
 
     // live auto-check as the user writes
     var debounce = null;
