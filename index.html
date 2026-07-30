@@ -331,6 +331,20 @@
   .sub-text { font-family: var(--serif); font-size: 14px; line-height: 1.75; padding: 14px; border-radius: 11px; border: 1px solid var(--line); background: var(--card-2); }
   .sub-text.model { border-color: color-mix(in srgb, var(--good) 32%, var(--line)); background: var(--good-soft); }
 
+  /* study & drills lessons */
+  .lesson-box { margin-top: 8px; }
+  .lesson { border: 1px solid var(--line); border-radius: 11px; padding: 14px 16px; background: var(--card-2); }
+  .lesson-title { font-family: var(--serif); font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .lesson-exp { font-size: 13.5px; line-height: 1.55; color: var(--ink-soft); }
+  .lx-h { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-faint); font-weight: 700; margin: 14px 0 8px; }
+  .lx-ex { padding: 9px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); margin-bottom: 8px; font-size: 13px; }
+  .lx-wrong { color: var(--bad); }
+  .lx-right { color: var(--good); margin-top: 2px; }
+  .lx-note { color: var(--ink-faint); font-size: 12px; margin-top: 4px; }
+  .lx-q { padding: 9px 12px; border-radius: 9px; border: 1px solid var(--line); background: var(--card); margin-bottom: 8px; font-size: 13px; }
+  .lx-qp { line-height: 1.5; }
+  .lx-a { margin-top: 6px; padding: 8px 10px; border-radius: 8px; background: var(--good-soft); color: var(--ink); font-size: 13px; font-family: var(--serif); line-height: 1.5; }
+
   .model-toggle { margin-top: 14px; }
   .model-answer { margin-top: 12px; padding: 16px; border-radius: 11px; background: var(--card-2); border: 1px solid var(--line); font-family: var(--serif); font-size: 14px; line-height: 1.65; display: none; }
   .model-answer.show { display: block; }
@@ -447,6 +461,11 @@
         <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l5 5v13H6z"/><path d="M15 3v6h6"/><path d="M9 13h6M9 17h4"/></svg>
         My Submissions
         <span class="nav-badge" id="nb-subs">0</span>
+      </button>
+      <button class="nav-btn" data-view="lessons">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5a2 2 0 0 1 2-2h8v18H6a2 2 0 0 1-2-2z"/><path d="M14 3l6 3v13l-6-3z"/></svg>
+        Study &amp; Drills
+        <span class="nav-badge" id="nb-lessons">0</span>
       </button>
 
       <div class="side-foot">
@@ -674,6 +693,7 @@
     });
     setBadge("nb-log", (state.log && state.log.length) || 0);
     setBadge("nb-subs", (state.submissions && state.submissions.length) || 0);
+    setBadge("nb-lessons", (state.lessons && state.lessons.length) || 0);
   }
   function setBadge(id, val){ var e=document.getElementById(id); if(e) e.textContent = val; }
 
@@ -1092,6 +1112,72 @@
     });
   }
 
+  function aiLesson(topic, kind, btn, box){
+    if(!box) return;
+    if(box.getAttribute("data-loaded") === "1"){ box.hidden = !box.hidden; return; }
+    var original = btn.textContent;
+    btn.disabled = true; btn.textContent = "\u23F3 \u2026";
+    box.hidden = false;
+    box.innerHTML = '<div style="padding:14px;color:var(--ink-faint);font-size:13px">\u23F3 Building your mini-lesson\u2026 (~10s)</div>';
+    fetch("/api/lesson", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-app-password": getPassword() },
+      body: JSON.stringify({ topic: topic, task: kind })
+    }).then(function(r){
+      if(r.status === 401){ state.aiPassword = ""; save(); throw new Error("Wrong password \u2014 reload and try again."); }
+      if(!r.ok) return r.text().then(function(t){ throw new Error("Server error (" + r.status + ")."); });
+      return r.json();
+    }).then(function(data){
+      if(data && data.error) throw new Error(data.error);
+      box.innerHTML = renderLesson(data);
+      box.setAttribute("data-loaded", "1");
+      wireLessonReveals(box);
+      saveLesson(kind, topic, data);
+      addXP(8);
+    }).catch(function(err){
+      box.innerHTML = '<div style="padding:12px;color:var(--bad);font-size:13px">\u26A0\uFE0F ' + esc(err.message || "Could not load the lesson.") + '</div>';
+    }).finally(function(){
+      btn.disabled = false; btn.textContent = original;
+    });
+  }
+
+  function renderLesson(data){
+    var ex = (data.examples || []).map(function(e){
+      return '<div class="lx-ex"><div class="lx-wrong">\u2717 ' + esc(e.incorrect || "") + '</div>'
+        + '<div class="lx-right">\u2713 ' + esc(e.correct || "") + '</div>'
+        + (e.note ? '<div class="lx-note">' + esc(e.note) + '</div>' : '') + '</div>';
+    }).join("");
+    var exercises = (data.exercises || []).map(function(q, i){
+      return '<div class="lx-q"><div class="lx-qp"><b>' + (i + 1) + '.</b> ' + esc(q.prompt || "") + '</div>'
+        + '<button class="btn ghost lx-reveal" style="font-size:12px;padding:4px 9px;margin-top:6px">Show answer</button>'
+        + '<div class="lx-a" hidden>' + esc(q.answer || "").replace(/\n/g, "<br>") + '</div></div>';
+    }).join("");
+    return '<div class="lesson">'
+      + '<div class="lesson-title">' + esc(data.title || "Mini-lesson") + '</div>'
+      + '<div class="lesson-exp">' + esc(data.explanation || "").replace(/\n/g, "<br>") + '</div>'
+      + (ex ? '<div class="lx-h">Examples</div>' + ex : '')
+      + (exercises ? '<div class="lx-h">Exercises \u2014 try, then reveal</div>' + exercises : '')
+      + '</div>';
+  }
+
+  function wireLessonReveals(scope){
+    scope.querySelectorAll(".lx-reveal").forEach(function(b){
+      b.addEventListener("click", function(){
+        var a = b.parentNode.querySelector(".lx-a");
+        if(!a) return;
+        if(a.hasAttribute("hidden")){ a.removeAttribute("hidden"); b.textContent = "Hide answer"; }
+        else { a.setAttribute("hidden", ""); b.textContent = "Show answer"; }
+      });
+    });
+  }
+
+  function saveLesson(kind, topic, data){
+    if(!state.lessons) state.lessons = [];
+    state.lessons.unshift({ id: Date.now(), ts: new Date().toISOString(), task: kind, topic: topic, lesson: data });
+    if(state.lessons.length > 80) state.lessons.length = 80;
+    save();
+  }
+
   function critLine(name, band){
     var b = (band === null || band === undefined || isNaN(band)) ? null : Number(band);
     var lvl = b === null ? "work" : b >= 7.5 ? "good" : b >= 6.5 ? "ok" : "work";
@@ -1108,7 +1194,12 @@
         + (m.correction ? '<b style="color:var(--good)">\u201C' + esc(m.correction) + '\u201D</b> ' : '')
         + (m.explanation ? '\u2014 ' + esc(m.explanation) : '') + '</li>';
     }).join("");
-    var practice = (data.practice || []).map(function(t){ return '<li class="sev-tip">' + esc(t) + '</li>'; }).join("");
+    var practice = (data.practice || []).map(function(t){
+      return '<li class="sev-tip"><div style="display:flex;gap:10px;align-items:flex-start;justify-content:space-between">'
+        + '<span>' + esc(t) + '</span>'
+        + '<button class="btn ghost lesson-btn" data-topic="' + encodeURIComponent(t) + '" style="flex:none;font-size:12px;padding:5px 10px;white-space:nowrap">\uD83D\uDCD6 Learn</button>'
+        + '</div><div class="lesson-box" hidden></div></li>';
+    }).join("");
     rep.innerHTML =
       '<div class="rep-band"><div class="rep-num">' + (b.overall != null ? Number(b.overall).toFixed(1) : "\u2013") + '</div>'
         + '<div style="font-size:13px">AI examiner band<br><small>IELTS Advantage-style evaluation (Sonnet 5)</small></div></div>'
@@ -1123,6 +1214,13 @@
       + '<div class="rep-head">Band 8+ model rewrite</div>'
       + '<div class="model-answer show" style="margin-top:0">' + esc(data.band8_rewrite || "").replace(/\n/g, "<br>") + '</div>'
       + (practice ? '<div class="rep-head">Practise next</div><ul class="issue-list">' + practice + '</ul>' : '');
+    rep.querySelectorAll(".lesson-btn").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var topic = decodeURIComponent(btn.getAttribute("data-topic"));
+        var box = btn.closest("li").querySelector(".lesson-box");
+        aiLesson(topic, kind, btn, box);
+      });
+    });
     rep.hidden = false;
   }
 
@@ -1584,6 +1682,38 @@
     });
   };
 
+  /* ---------- Study & Drills (saved mini-lessons) ---------- */
+  views.lessons = function(){
+    var ls = state.lessons || [];
+    var html = topbar("Study & Drills", "Deep-dive lessons with examples and exercises, built from what you need to practise.");
+    if(!ls.length){
+      html += '<div class="card empty"><div class="big">\uD83D\uDCD6</div>'
+        + '<b style="color:var(--ink);font-size:16px">No lessons yet</b>'
+        + '<p style="margin-top:6px">After an AI correction, look at <b>Practise next</b> and press <b>\uD83D\uDCD6 Learn</b> on any tip. The full lesson (explanation + examples + exercises) is saved here so you can study it anytime.</p></div>';
+      main.innerHTML = html; refreshChips(); return;
+    }
+    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+      + '<div class="section-title" style="margin:0;flex:1">Saved lessons <span class="rule"></span></div>'
+      + '<button class="btn ghost" id="clearLessons">Clear all</button></div>';
+    html += ls.map(function(e){
+      var d = new Date(e.ts);
+      var date = d.toLocaleDateString(undefined,{ day:"2-digit", month:"short" });
+      var pill = e.task === "t1" ? "t1" : "t2";
+      var lbl = e.task === "t1" ? "Task 1" : e.task === "t2" ? "Task 2" : "IELTS";
+      return '<div class="card" style="padding:16px 18px;margin-bottom:12px">'
+        + '<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">'
+          + '<span class="pill ' + pill + '">' + lbl + '</span>'
+          + '<span style="font-size:12px;color:var(--ink-faint);font-family:var(--mono);margin-left:auto">' + date + '</span></div>'
+        + renderLesson(e.lesson) + '</div>';
+    }).join("");
+    main.innerHTML = html; refreshChips();
+    wireLessonReveals(main);
+    var cl = document.getElementById("clearLessons");
+    if(cl) cl.addEventListener("click", function(){
+      if(window.confirm("Delete all saved lessons? This cannot be undone.")){ state.lessons = []; save(); go("lessons"); }
+    });
+  };
+
   /* wire view dispatch */
   views.task1 = function(){ writingView("t1"); };
   views.task2 = function(){ writingView("t2"); };
@@ -1597,7 +1727,7 @@
   var NAV = [
     ["home","Dashboard"],["task1","Task 1"],["task2","Task 2"],
     ["register","Register"],["essaytype","Essay"],["cohesion","Cohesion"],
-    ["collocation","Collocations"],["paraphrase","Paraphrase"],["reference","Guide"],["log","Tips"],["submissions","Writing"]
+    ["collocation","Collocations"],["paraphrase","Paraphrase"],["reference","Guide"],["log","Tips"],["submissions","Writing"],["lessons","Drills"]
   ];
   function buildMobileTabs(){
     var m = document.getElementById("mtabs");
