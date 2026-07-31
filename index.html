@@ -830,7 +830,7 @@
     fetch("/api/prompt", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-app-password": getPassword() },
-      body: JSON.stringify({ kind: kind, type: typeLabel })
+      body: JSON.stringify({ kind: kind, type: typeLabel, avoid: (writeState.recent && writeState.recent[kind]) ? writeState.recent[kind].slice(0, 12) : [] })
     }).then(function(r){
       if(r.status === 401){ state.aiPassword = ""; save(); throw new Error("Wrong password \u2014 reload and try again."); }
       if(!r.ok) return r.text().then(function(t){ throw new Error("Server error (" + r.status + ")."); });
@@ -838,7 +838,10 @@
     }).then(function(data){
       if(data && data.error) throw new Error(data.error);
       if(!writeState.current) writeState.current = {};
+      if(!writeState.recent) writeState.recent = { t1: [], t2: [] };
       writeState.current[kind] = makePrompt(kind, data);
+      var _desc = (data.title || "") + " \u2014 " + String(data.body || "").slice(0, 80);
+      writeState.recent[kind] = [_desc].concat(writeState.recent[kind] || []).slice(0, 14);
       writingView(kind);
     }).catch(function(err){
       if(nb){ nb.disabled = false; nb.textContent = "\u2728 New prompt"; }

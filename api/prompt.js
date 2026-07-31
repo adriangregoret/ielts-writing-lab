@@ -50,17 +50,24 @@ export default async function handler(req, res) {
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
-    const { kind, type } = body;
+    const { kind, type, avoid } = body;
 
     const kindLabel = kind === "t1"
       ? "Task 1 letter"
       : "Task 2 essay";
     const typeLabel = (type && String(type).trim()) || (kind === "t1" ? "any common letter type" : "any common essay type");
 
+    const seed = Math.random().toString(36).slice(2) + "-" + Date.now();
+    const avoidList = Array.isArray(avoid) && avoid.length
+      ? "\n\nAlready practised (do NOT reuse any of these, or anything closely similar):\n- " + avoid.slice(0, 12).join("\n- ")
+      : "";
+
     const userContent =
       "KIND: " + kindLabel + "\n" +
       "TYPE: " + typeLabel + "\n" +
-      "Generate one fresh prompt now.";
+      "Invent a NEW, specific, realistic scenario that is clearly different from common textbook examples. Change the setting, the people, the product or service, and the details every time \u2014 be genuinely creative and varied." +
+      avoidList +
+      "\n\nRandomization token (use it to pick a genuinely different scenario; never mention it in the output): " + seed;
 
     const response = await client.messages.create({
       model: "claude-sonnet-5",
