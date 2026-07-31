@@ -1762,32 +1762,83 @@
     });
   };
 
-  /* ---------- Study & Drills (saved mini-lessons) ---------- */
+  /* ---------- Study & Drills (custom + saved mini-lessons) ---------- */
+  function buildCustomLesson(topic){
+    var out = document.getElementById("customLessonOut");
+    var btn = document.getElementById("buildLesson");
+    if(btn){ btn.disabled = true; btn.textContent = "\u23F3 Building\u2026"; }
+    if(out){ out.hidden = false; out.innerHTML = '<div style="padding:14px;color:var(--ink-faint);font-size:13px">\u23F3 Building your class\u2026 (~10s)</div>'; }
+    fetch("/api/lesson", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-app-password": getPassword() },
+      body: JSON.stringify({ topic: topic, task: "" })
+    }).then(function(r){
+      if(r.status === 401){ state.aiPassword = ""; save(); throw new Error("Wrong password \u2014 reload and try again."); }
+      if(!r.ok) return r.text().then(function(t){ throw new Error("Server error (" + r.status + ")."); });
+      return r.json();
+    }).then(function(data){
+      if(data && data.error) throw new Error(data.error);
+      saveLesson("topic", topic, data);
+      addXP(8);
+      go("lessons");
+    }).catch(function(err){
+      if(out) out.innerHTML = '<div style="padding:12px;color:var(--bad);font-size:13px">\u26A0\uFE0F ' + esc(err.message || "Could not build the lesson.") + '</div>';
+      if(btn){ btn.disabled = false; btn.textContent = "\uD83D\uDCD6 Build lesson"; }
+    });
+  }
+
   views.lessons = function(){
     var ls = state.lessons || [];
-    var html = topbar("Study & Drills", "Deep-dive lessons with examples and exercises, built from what you need to practise.");
-    if(!ls.length){
-      html += '<div class="card empty"><div class="big">\uD83D\uDCD6</div>'
-        + '<b style="color:var(--ink);font-size:16px">No lessons yet</b>'
-        + '<p style="margin-top:6px">After an AI correction, look at <b>Practise next</b> and press <b>\uD83D\uDCD6 Learn</b> on any tip. The full lesson (explanation + examples + exercises) is saved here so you can study it anytime.</p></div>';
-      main.innerHTML = html; refreshChips(); return;
+    var html = topbar("Study & Drills", "Ask for any topic and get a full class \u2014 when & how to use it, examples, and exercises. Everything you generate is saved here.");
+    html += '<div class="card" style="padding:16px 18px;margin-bottom:18px">'
+      + '<div style="font-family:var(--serif);font-size:15px;margin-bottom:8px">Build a lesson on any topic</div>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap">'
+        + '<input id="lessonTopic" placeholder="e.g. how to use \u201Chowever\u201D, the past perfect, formal complaint phrases\u2026" style="flex:1;min-width:220px;padding:10px 13px;border-radius:10px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);font:inherit;font-size:13.5px" />'
+        + '<button class="btn primary" id="buildLesson">\uD83D\uDCD6 Build lesson</button>'
+      + '</div>'
+      + '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px" id="topicSuggest"></div>'
+      + '<div id="customLessonOut" hidden></div></div>';
+    if(ls.length){
+      html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
+        + '<div class="section-title" style="margin:0;flex:1">Saved lessons <span class="rule"></span></div>'
+        + '<button class="btn ghost" id="clearLessons">Clear all</button></div>';
+      html += ls.map(function(e){
+        var d = new Date(e.ts);
+        var date = d.toLocaleDateString(undefined,{ day:"2-digit", month:"short" });
+        var pill = e.task === "t1" ? "t1" : "t2";
+        var lbl = e.task === "t1" ? "Task 1" : e.task === "t2" ? "Task 2" : "Topic";
+        return '<div class="card" style="padding:16px 18px;margin-bottom:12px">'
+          + '<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap">'
+            + '<span class="pill ' + pill + '">' + lbl + '</span>'
+            + '<b style="font-family:var(--serif);font-size:13.5px">' + esc(e.topic || "") + '</b>'
+            + '<span style="font-size:12px;color:var(--ink-faint);font-family:var(--mono);margin-left:auto">' + date + '</span></div>'
+          + renderLesson(e.lesson) + '</div>';
+      }).join("");
+    } else {
+      html += '<div class="card empty" style="padding:34px 24px"><div class="big">\uD83D\uDCD6</div>'
+        + '<b style="color:var(--ink);font-size:15px">No saved lessons yet</b>'
+        + '<p style="margin-top:6px">Type a topic above and press <b>Build lesson</b> \u2014 or press <b>\uD83D\uDCD6 Learn</b> on any tip in an AI correction\u2019s <b>Practise next</b> list.</p></div>';
     }
-    html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">'
-      + '<div class="section-title" style="margin:0;flex:1">Saved lessons <span class="rule"></span></div>'
-      + '<button class="btn ghost" id="clearLessons">Clear all</button></div>';
-    html += ls.map(function(e){
-      var d = new Date(e.ts);
-      var date = d.toLocaleDateString(undefined,{ day:"2-digit", month:"short" });
-      var pill = e.task === "t1" ? "t1" : "t2";
-      var lbl = e.task === "t1" ? "Task 1" : e.task === "t2" ? "Task 2" : "IELTS";
-      return '<div class="card" style="padding:16px 18px;margin-bottom:12px">'
-        + '<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px">'
-          + '<span class="pill ' + pill + '">' + lbl + '</span>'
-          + '<span style="font-size:12px;color:var(--ink-faint);font-family:var(--mono);margin-left:auto">' + date + '</span></div>'
-        + renderLesson(e.lesson) + '</div>';
-    }).join("");
     main.innerHTML = html; refreshChips();
     wireLessonReveals(main);
+    var sug = document.getElementById("topicSuggest");
+    if(sug){
+      ["Linking words for contrast","Past perfect tense","Formal complaint phrases","Paraphrasing techniques","Articles (a / an / the)","Conditionals (if-clauses)"].forEach(function(t){
+        var b = document.createElement("button");
+        b.className = "type-chip"; b.textContent = t;
+        b.addEventListener("click", function(){ var inp = document.getElementById("lessonTopic"); if(inp) inp.value = t; buildCustomLesson(t); });
+        sug.appendChild(b);
+      });
+    }
+    var bl = document.getElementById("buildLesson");
+    if(bl) bl.addEventListener("click", function(){
+      var inp = document.getElementById("lessonTopic");
+      var topic = inp ? inp.value.trim() : "";
+      if(topic.length < 3){ toast("Type a topic first \u270D\uFE0F"); return; }
+      buildCustomLesson(topic);
+    });
+    var lt = document.getElementById("lessonTopic");
+    if(lt) lt.addEventListener("keydown", function(ev){ if(ev.key === "Enter"){ ev.preventDefault(); var b = document.getElementById("buildLesson"); if(b) b.click(); } });
     var cl = document.getElementById("clearLessons");
     if(cl) cl.addEventListener("click", function(){
       if(window.confirm("Delete all saved lessons? This cannot be undone.")){ state.lessons = []; save(); go("lessons"); }
